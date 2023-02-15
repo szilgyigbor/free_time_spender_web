@@ -1,2 +1,28 @@
 ﻿body {
 }
+
+table, td, th {
+    border: 1px solid;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 80px 180px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
