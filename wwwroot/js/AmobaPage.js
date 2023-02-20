@@ -42,7 +42,7 @@ function gameLogic(cell)
             cell.textContent = "X";
             cell.classList.add("red");
             checkWin(cell.id);
-            //currentPlayer = "O";
+            currentPlayer = "O";
         }
         
         else 
@@ -78,6 +78,8 @@ function gameLogic(cell)
 
         let winnerDiagonalPositionsLeftUpRightDown = [];
         let winnerDiagonalPositionsLeftDownRightUp = [];
+        let horizontalPositions = [];
+        let verticalPositions = [];
 
         
         for (let i = -4; i < 5; i++)
@@ -95,6 +97,7 @@ function gameLogic(cell)
                 }
             }
         
+
             // check diagonal from left down to right up
             if (posX + (- i) >= 0 && posY + i >= 0 && posX + (- i) < tableSize && posY + i < tableSize)
             {
@@ -109,13 +112,41 @@ function gameLogic(cell)
             }
 
 
-            
+            // check horizontal
+            if (posY + i >= 0 &&  posY + i < tableSize)
+            {
+                if (document.querySelector(`#cell-${posX}-${posY + i}`).textContent === currentPlayer)
+                {
+                    horizontalPositions.push(`#cell-${posX}-${posY + i}`);
+                }
+                else
+                {
+                    horizontalPositions = [];
+                }
+            }
 
+
+            // check vertical
+            if (posX + i >= 0 &&  posX + i < tableSize)
+            {
+                if (document.querySelector(`#cell-${posX + i}-${posY}`).textContent === currentPlayer)
+                {
+                    verticalPositions.push(`#cell-${posX + i}-${posY}`);
+                }
+                else
+                {
+                    verticalPositions = [];
+                }
+            }
+
+
+            // colorize winner
             if (winnerDiagonalPositionsLeftUpRightDown.length === 5)
             {
                 amobaString.textContent = `${currentPlayer} has won!`;
                 amobaTable.removeEventListener('click', clickHandler);
                 colorizeWinnerFive(winnerDiagonalPositionsLeftUpRightDown);
+                break;
             }
 
             else if (winnerDiagonalPositionsLeftDownRightUp.length == 5)
@@ -123,121 +154,27 @@ function gameLogic(cell)
                 amobaString.textContent = `${currentPlayer} has won!`;
                 amobaTable.removeEventListener('click', clickHandler);
                 colorizeWinnerFive(winnerDiagonalPositionsLeftDownRightUp);
+                break;
             }
 
-        }
-        
-        // check diagonal right down
-        /*for (let i = 0; i < 5; i++)
-        {
-            if (posX + i < tableSize && posY + i < tableSize)
+            else if (horizontalPositions.length == 5)
             {
-                if (document.querySelector(`#cell-${posX + i}-${posY + i}`).textContent === currentPlayer)
-                {
-                    winnerDiagonalPositionsRightDown.push(`#cell-${posX + i}-${posY + i}`);
-                    console.log(winnerDiagonalPositionsRightDown);
-                }
-                else
-                {
-                    break;
-                }
+                amobaString.textContent = `${currentPlayer} has won!`;
+                amobaTable.removeEventListener('click', clickHandler);
+                colorizeWinnerFive(horizontalPositions);
+                break;
             }
-        }*/
 
-
-
-        // Check columns and rows
-        
-        /*for (let i = 0; i < tableSize; i++)
-        {
-            let winnerRowPositions = [];
-            let winnerColumnPositions = [];
-            let howManyInRows = 0;
-            let howManyInColumns = 0;
-
-            for (let j = 0; j < tableSize; j++)
+            else if (verticalPositions.length == 5)
             {
-
-                if (document.querySelector(`#cell-${i}-${j}`).textContent === currentPlayer) 
-                {
-                    howManyInRows++;
-                    winnerRowPositions.push(`#cell-${i}-${j}`);
-                }
-                else
-                {
-                    howManyInRows = 0;
-                    winnerRowPositions = [];
-                }
-
-                if (document.querySelector(`#cell-${j}-${i}`).textContent === currentPlayer) 
-                {
-                    howManyInColumns++;
-                    winnerColumnPositions.push(`#cell-${j}-${i}`);
-                }
-                else
-                {
-                    howManyInColumns = 0;
-                    winnerColumnPositions = [];
-                }
-
-                if (howManyInRows === 5) 
-                {
-                    amobaString.textContent = `${currentPlayer} has won!`;
-                    amobaTable.removeEventListener('click', clickHandler);
-                    colorizeWinnerFive(winnerRowPositions);
-                }
-                    
-                if (howManyInColumns === 5)
-                {
-                    amobaString.textContent = `${currentPlayer} has won!`;
-                    amobaTable.removeEventListener('click', clickHandler);
-                    colorizeWinnerFive(winnerColumnPositions);
-                }
+                amobaString.textContent = `${currentPlayer} has won!`;
+                amobaTable.removeEventListener('click', clickHandler);
+                colorizeWinnerFive(verticalPositions);
+                break;
             }
         }
-
-        // Check diagonal
-
-        for (let i = 0; i < tableSize; i++)
-        {
-            for (let j = 0; j < tableSize; j++)
-            {
-                let howManyInDiagonals = 0;
-                let winnerDiagonalPositions = [];
-
-                for (let k = 0; k < 5; k++) 
-                {
-                    if (document.querySelector(`#cell-${i+k}-${j+k}`).textContent === currentPlayer) 
-                    {
-                        winnerDiagonalPositions.push(`#cell-${i+k}-${j+k}`);
-                        howManyInDiagonals++;
-                        if (currentPlayer === "X")
-                        {
-                            console.log(winnerDiagonalPositions);
-                        }
-                        
-                    }
-                    
-                    else 
-                    {
-                        howManyInDiagonals = 0;
-                        winnerDiagonalPositions = []
-                        break;
-                    }
-                    
-                    if (howManyInDiagonals === 5) 
-                    {
-                        amobaString.textContent = `${currentPlayer} has won!`;
-                        amobaTable.removeEventListener('click', clickHandler);
-                        colorizeWinnerFive(winnerDiagonalPositions);
-                    }
-
-
-                }
-                
-            }
-        } */
     }
+
 
     function colorizeWinnerFive(winnerArray)
     {
