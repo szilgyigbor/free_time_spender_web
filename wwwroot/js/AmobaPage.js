@@ -37,12 +37,12 @@ function gameLogic(cell)
     if (currentPlayer === "X")
     {
 
-        if (cell.textContent === "")
+        if (cell.textContent == "")
         {
             cell.textContent = "X";
             cell.classList.add("red");
             checkWin(cell.id);
-            currentPlayer = "O";
+            //currentPlayer = "O";
         }
         
         else 
@@ -51,11 +51,11 @@ function gameLogic(cell)
         }
     }
 
-    if (currentPlayer === "O")
+    else if (currentPlayer === "O")
     {
         
 
-        if (cell.textContent === "")
+        if (cell.textContent == "")
         {
             cell.textContent = "O";
             cell.classList.add("green");
@@ -70,19 +70,90 @@ function gameLogic(cell)
     }
 
 
-    function checkWin(position)
+    function checkWin(cellId)
     {
+        let posX = parseInt(cellId.split("-")[1]);
+        let posY = parseInt(cellId.split("-")[2]);
+        console.log(posX, posY);
 
-        let splitPosition = position.split("-");
-        const row  = parseInt(splitPosition[1]);
-        const collumn = parseInt(splitPosition[2]);
-        console.log(row, collumn);
+        let winnerDiagonalPositionsLeftUpRightDown = [];
+        let winnerDiagonalPositionsLeftDownRightUp = [];
+
         
-        
-        for (let i = 0; i < tableSize; i++)
+        for (let i = -4; i < 5; i++)
         {
+            // check diagonal from left up to right down
+            if (posX + i >= 0 && posY + i >= 0 && posX + i < tableSize && posY + i < tableSize)
+            {
+                if (document.querySelector(`#cell-${posX + i}-${posY + i}`).textContent === currentPlayer)
+                {
+                    winnerDiagonalPositionsLeftUpRightDown.push(`#cell-${posX + i}-${posY + i}`);
+                }
+                else
+                {
+                    winnerDiagonalPositionsLeftUpRightDown = [];
+                }
+            }
+        
+            // check diagonal from left down to right up
+            if (posX + (- i) >= 0 && posY + i >= 0 && posX + (- i) < tableSize && posY + i < tableSize)
+            {
+                if (document.querySelector(`#cell-${posX + (- i)}-${posY + i}`).textContent === currentPlayer)
+                {
+                    winnerDiagonalPositionsLeftDownRightUp.push(`#cell-${posX + (- i)}-${posY + i}`);
+                }
+                else
+                {
+                    winnerDiagonalPositionsLeftDownRightUp = [];
+                }
+            }
+
+
+            
+
+            if (winnerDiagonalPositionsLeftUpRightDown.length === 5)
+            {
+                amobaString.textContent = `${currentPlayer} has won!`;
+                amobaTable.removeEventListener('click', clickHandler);
+                colorizeWinnerFive(winnerDiagonalPositionsLeftUpRightDown);
+            }
+
+            else if (winnerDiagonalPositionsLeftDownRightUp.length == 5)
+            {
+                amobaString.textContent = `${currentPlayer} has won!`;
+                amobaTable.removeEventListener('click', clickHandler);
+                colorizeWinnerFive(winnerDiagonalPositionsLeftDownRightUp);
+            }
+
+        }
+        
+        // check diagonal right down
+        /*for (let i = 0; i < 5; i++)
+        {
+            if (posX + i < tableSize && posY + i < tableSize)
+            {
+                if (document.querySelector(`#cell-${posX + i}-${posY + i}`).textContent === currentPlayer)
+                {
+                    winnerDiagonalPositionsRightDown.push(`#cell-${posX + i}-${posY + i}`);
+                    console.log(winnerDiagonalPositionsRightDown);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }*/
+
+
+
+        // Check columns and rows
+        
+        /*for (let i = 0; i < tableSize; i++)
+        {
+            let winnerRowPositions = [];
+            let winnerColumnPositions = [];
             let howManyInRows = 0;
-            let howManyInCollumns = 0;
+            let howManyInColumns = 0;
 
             for (let j = 0; j < tableSize; j++)
             {
@@ -90,27 +161,99 @@ function gameLogic(cell)
                 if (document.querySelector(`#cell-${i}-${j}`).textContent === currentPlayer) 
                 {
                     howManyInRows++;
+                    winnerRowPositions.push(`#cell-${i}-${j}`);
                 }
                 else
                 {
                     howManyInRows = 0;
+                    winnerRowPositions = [];
                 }
 
                 if (document.querySelector(`#cell-${j}-${i}`).textContent === currentPlayer) 
                 {
-                    howManyInCollumns++;
+                    howManyInColumns++;
+                    winnerColumnPositions.push(`#cell-${j}-${i}`);
                 }
                 else
                 {
-                    howManyInCollumns = 0;
+                    howManyInColumns = 0;
+                    winnerColumnPositions = [];
                 }
 
-                if (howManyInRows === 5 || howManyInCollumns === 5)
+                if (howManyInRows === 5) 
                 {
                     amobaString.textContent = `${currentPlayer} has won!`;
                     amobaTable.removeEventListener('click', clickHandler);
+                    colorizeWinnerFive(winnerRowPositions);
+                }
+                    
+                if (howManyInColumns === 5)
+                {
+                    amobaString.textContent = `${currentPlayer} has won!`;
+                    amobaTable.removeEventListener('click', clickHandler);
+                    colorizeWinnerFive(winnerColumnPositions);
                 }
             }
         }
+
+        // Check diagonal
+
+        for (let i = 0; i < tableSize; i++)
+        {
+            for (let j = 0; j < tableSize; j++)
+            {
+                let howManyInDiagonals = 0;
+                let winnerDiagonalPositions = [];
+
+                for (let k = 0; k < 5; k++) 
+                {
+                    if (document.querySelector(`#cell-${i+k}-${j+k}`).textContent === currentPlayer) 
+                    {
+                        winnerDiagonalPositions.push(`#cell-${i+k}-${j+k}`);
+                        howManyInDiagonals++;
+                        if (currentPlayer === "X")
+                        {
+                            console.log(winnerDiagonalPositions);
+                        }
+                        
+                    }
+                    
+                    else 
+                    {
+                        howManyInDiagonals = 0;
+                        winnerDiagonalPositions = []
+                        break;
+                    }
+                    
+                    if (howManyInDiagonals === 5) 
+                    {
+                        amobaString.textContent = `${currentPlayer} has won!`;
+                        amobaTable.removeEventListener('click', clickHandler);
+                        colorizeWinnerFive(winnerDiagonalPositions);
+                    }
+
+
+                }
+                
+            }
+        } */
     }
+
+    function colorizeWinnerFive(winnerArray)
+    {
+        winnerArray.forEach(element => {
+            document.querySelector(`${element}`).classList.add("yellow");
+        });
+
+        if (currentPlayer === "X")
+        {
+            amobaString.classList.add("red");    
+        }
+        else
+        {
+            amobaString.classList.add("green");
+        }
+
+    }
+
 }
