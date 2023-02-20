@@ -2,7 +2,8 @@
 }
 
 table, td, th {
-    border: 1px solid;
+    border: 1px solid white;
+    background-color: lightgrey;
 }
 
 td {
@@ -21,12 +22,15 @@ table {
 
 .red {
     color: red;
+    background-color: lightpink;
 }
 
 .green {
     color: green;
+    background-color: lightgreen;
 }
 
 .yellow {
     color: orange;
+    background-color: lightgoldenrodyellow;
 }
