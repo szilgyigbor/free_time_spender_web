@@ -1,9 +1,11 @@
 ﻿let amobaTable = document.querySelector("#amobaTable");
 let tableSize = 20;
-let currentPlayer = "X"
+let currentPlayer = "X";
 let amobaString = document.querySelector("#amobaString");
+let lastMove = "";
 
 
+// create the table
 for (let i = 0; i < tableSize; i++)
 {
     const row = document.createElement('tr');
@@ -34,39 +36,18 @@ function clickHandler(event)
 
 function gameLogic(cell) 
 {
-    if (currentPlayer === "X")
+    if (cell.textContent == "")
     {
-
-        if (cell.textContent == "")
-        {
-            cell.textContent = "X";
-            cell.classList.add("red");
-            checkWin(cell.id);
-            currentPlayer = "O";
-        }
-        
-        else 
-        {
-            console.log("Itt már van bábú");
-        }
+        cell.textContent = "X";
+        cell.classList.add("red");
+        lastMove = cell.id;
+        checkWin(lastMove);
+        aiMove();
     }
-
-    else if (currentPlayer === "O")
+    
+    else 
     {
-        
-
-        if (cell.textContent == "")
-        {
-            cell.textContent = "O";
-            cell.classList.add("green");
-            checkWin(cell.id);
-            currentPlayer = "X";
-        }
-        
-        else 
-        {
-            console.log("Itt már van bábú");
-        }
+        console.log("Itt már van bábú");
     }
 
 
@@ -74,13 +55,10 @@ function gameLogic(cell)
     {
         let posX = parseInt(cellId.split("-")[1]);
         let posY = parseInt(cellId.split("-")[2]);
-        console.log(posX, posY);
-
         let winnerDiagonalPositionsLeftUpRightDown = [];
         let winnerDiagonalPositionsLeftDownRightUp = [];
         let horizontalPositions = [];
         let verticalPositions = [];
-
         
         for (let i = -4; i < 5; i++)
         {
@@ -96,7 +74,6 @@ function gameLogic(cell)
                     winnerDiagonalPositionsLeftUpRightDown = [];
                 }
             }
-        
 
             // check diagonal from left down to right up
             if (posX + (- i) >= 0 && posY + i >= 0 && posX + (- i) < tableSize && posY + i < tableSize)
@@ -111,7 +88,6 @@ function gameLogic(cell)
                 }
             }
 
-
             // check horizontal
             if (posY + i >= 0 &&  posY + i < tableSize)
             {
@@ -125,7 +101,6 @@ function gameLogic(cell)
                 }
             }
 
-
             // check vertical
             if (posX + i >= 0 &&  posX + i < tableSize)
             {
@@ -138,7 +113,6 @@ function gameLogic(cell)
                     verticalPositions = [];
                 }
             }
-
 
             // colorize winner
             if (winnerDiagonalPositionsLeftUpRightDown.length === 5)
@@ -178,7 +152,8 @@ function gameLogic(cell)
 
     function colorizeWinnerFive(winnerArray)
     {
-        winnerArray.forEach(element => {
+        winnerArray.forEach(element => 
+        {
             document.querySelector(`${element}`).classList.add("yellow");
         });
 
@@ -193,4 +168,76 @@ function gameLogic(cell)
 
     }
 
+
+    function aiMove()
+    {
+        currentPlayer = "O";
+        let thisCell = "";
+        let posX = parseInt(lastMove.split("-")[1]);
+        let posY = parseInt(lastMove.split("-")[2]);
+
+        for (let i = 0; i < 6; i++)
+        {
+            let randomX = Math.floor(Math.random() * 3) - 1;
+            let randomY = Math.floor(Math.random() * 3) - 1;
+
+            if (posX + randomX >= 0 && posY + randomY >= 0 && posX + randomX < tableSize && posY + randomY < tableSize)
+            {
+                lastMove = `#cell-${posX + randomX}-${posY + randomY}`;
+                thisCell = document.querySelector(lastMove);
+
+                if (thisCell.textContent === "")
+                {
+                    thisCell.textContent = currentPlayer;
+                    break;
+                }
+            }
+        }
+
+        if (thisCell.textContent != currentPlayer)
+        {
+            for (let i = 0; i < 11; i++)
+            {
+                let randomX = Math.floor(Math.random() * 5) - 2;
+                let randomY = Math.floor(Math.random() * 5) - 2;
+
+                if (posX + randomX >= 0 && posY + randomY >= 0 && posX + randomX < tableSize && posY + randomY < tableSize)
+                {
+                    lastMove = `#cell-${posX + randomX}-${posY + randomY}`;
+                    thisCell = document.querySelector(lastMove);
+
+                    if (thisCell.textContent === "")
+                    {
+                        thisCell.textContent = currentPlayer;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (thisCell.textContent != currentPlayer)
+        {
+            for (let i = 0; i < 16; i++)
+            {
+                let randomX = Math.floor(Math.random() * 6) - 3;
+                let randomY = Math.floor(Math.random() * 6) - 3;
+
+                if (posX + randomX >= 0 && posY + randomY >= 0 && posX + randomX < tableSize && posY + randomY < tableSize)
+                {
+                    lastMove = `#cell-${posX + randomX}-${posY + randomY}`;
+                    thisCell = document.querySelector(lastMove);
+
+                    if (thisCell.textContent === "")
+                    {
+                        thisCell.textContent = currentPlayer;
+                        break;
+                    }
+                }
+            }
+        }
+
+        thisCell.classList.add("green");
+        checkWin(lastMove);
+        currentPlayer = "X";
+    }
 }
