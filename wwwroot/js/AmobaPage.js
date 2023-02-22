@@ -3,6 +3,13 @@ let tableSize = 20;
 let currentPlayer = "X";
 let amobaString = document.querySelector("#amobaString");
 let lastMove = "";
+let gameEnd = false;
+const newGameButton = document.createElement("button");
+
+newGameButton.textContent = "Start a new game";
+newGameButton.onclick = function() {
+  location.reload();
+};
 
 
 // create the table
@@ -42,7 +49,10 @@ function gameLogic(cell)
         cell.classList.add("red");
         lastMove = cell.id;
         checkWin(lastMove);
-        aiMove();
+        if (!gameEnd)
+        {
+            aiMove();
+        }
     }
     
     else 
@@ -117,36 +127,41 @@ function gameLogic(cell)
             // colorize winner
             if (winnerDiagonalPositionsLeftUpRightDown.length === 5)
             {
-                amobaString.textContent = `${currentPlayer} has won!`;
-                amobaTable.removeEventListener('click', clickHandler);
+                makeWinner(currentPlayer);
                 colorizeWinnerFive(winnerDiagonalPositionsLeftUpRightDown);
                 break;
             }
 
             else if (winnerDiagonalPositionsLeftDownRightUp.length == 5)
             {
-                amobaString.textContent = `${currentPlayer} has won!`;
-                amobaTable.removeEventListener('click', clickHandler);
+                makeWinner(currentPlayer);
                 colorizeWinnerFive(winnerDiagonalPositionsLeftDownRightUp);
                 break;
             }
 
             else if (horizontalPositions.length == 5)
             {
-                amobaString.textContent = `${currentPlayer} has won!`;
-                amobaTable.removeEventListener('click', clickHandler);
+                makeWinner(currentPlayer);
                 colorizeWinnerFive(horizontalPositions);
                 break;
             }
 
             else if (verticalPositions.length == 5)
             {
-                amobaString.textContent = `${currentPlayer} has won!`;
-                amobaTable.removeEventListener('click', clickHandler);
+                makeWinner(currentPlayer);
                 colorizeWinnerFive(verticalPositions);
                 break;
             }
         }
+    }
+
+
+    function makeWinner(currentPlayer)
+    {
+        amobaString.textContent = `${currentPlayer} has won!  `;
+        amobaTable.removeEventListener('click', clickHandler);
+        gameEnd = true;
+        amobaString.appendChild(newGameButton);
     }
 
 
@@ -156,16 +171,6 @@ function gameLogic(cell)
         {
             document.querySelector(`${element}`).classList.add("yellow");
         });
-
-        if (currentPlayer === "X")
-        {
-            amobaString.classList.add("red");    
-        }
-        else
-        {
-            amobaString.classList.add("green");
-        }
-
     }
 
 
