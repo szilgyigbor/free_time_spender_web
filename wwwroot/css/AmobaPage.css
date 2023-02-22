@@ -1,24 +1,35 @@
 ﻿body {
+    background-color: #F0F0F0;
 }
 
 table, td, th {
     border: 1px solid white;
-    background-color: lightgrey;
+    background-color: #D3D3D3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 td {
     width: 30px;
     height: 30px;
     text-align: center;
-    vertical-align: middle;
-}
 
+}
 
 table {
     border-collapse: separate;
     border-spacing: 0;
-    margin: 80px 180px;
+    margin: 60px 400px;
+    vertical-align: middle;
 }
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .red {
     color: red;
