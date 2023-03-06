@@ -132,21 +132,21 @@ function gameLogic(cell)
                 break;
             }
 
-            else if (winnerDiagonalPositionsLeftDownRightUp.length == 5)
+            else if (winnerDiagonalPositionsLeftDownRightUp.length === 5)
             {
                 makeWinner(currentPlayer);
                 colorizeWinnerFive(winnerDiagonalPositionsLeftDownRightUp);
                 break;
             }
 
-            else if (horizontalPositions.length == 5)
+            else if (horizontalPositions.length === 5)
             {
                 makeWinner(currentPlayer);
                 colorizeWinnerFive(horizontalPositions);
                 break;
             }
 
-            else if (verticalPositions.length == 5)
+            else if (verticalPositions.length === 5)
             {
                 makeWinner(currentPlayer);
                 colorizeWinnerFive(verticalPositions);
