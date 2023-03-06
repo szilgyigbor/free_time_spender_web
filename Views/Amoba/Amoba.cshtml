@@ -2,10 +2,11 @@
     ViewData["Title"] = "Amoba";
 }
 
-
-<link rel="stylesheet" href="~/css/AmobaPage.css"/>
-<script src="~/js/AmobaPage.js" defer></script>
-
+@section extraHead
+{
+    <link rel="stylesheet" href="~/css/AmobaPage.css"/>
+    <script src="~/js/AmobaPage.js" defer></script>
+}
 
 <div class="text-center">
     <h1 id="amobaString">Five in a Row</h1>
