@@ -2,9 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<link rel="stylesheet" href="~/css/HomePage.css"/>
-<script src="~/js/HomePage.js" defer></script>
-
+@section extraHead
+{
+    <link rel="stylesheet" href="~/css/HomePage.css"/>
+    <script src="~/js/HomePage.js" defer></script>
+}
 
 <div class="text-center">
     <h1>Welcome to Free Time Spender</h1>
@@ -13,7 +15,7 @@
     <h2>What would you like to do?</h2>
     <div>
         <button class="button amobaButton" id="Amoba">Play Five in a Row</button>
-        <button class="button newsButton">Read news</button>
+        <button class="button newsButton" id="News">Read news</button>
         <button class="button button3">Check the Weather</button>
     </div>
     <div>
