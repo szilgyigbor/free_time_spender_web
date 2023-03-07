@@ -5,7 +5,7 @@ namespace FreeTimeSpenderWeb.Controllers
 {
     public class AmobaController : Controller
     {
-        public IActionResult Amoba()
+        public IActionResult Main()
         {
             return View();
         }

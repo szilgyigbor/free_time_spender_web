@@ -4,7 +4,7 @@ namespace FreeTimeSpenderWeb.Controllers
 {
     public class NewsController : Controller
     {
-        public IActionResult News()
+        public IActionResult Main()
         {
             return View();
         }
