@@ -25,6 +25,7 @@ async function fillCards()
         link.href = element.url;
         link.textContent = 'Read More';
         link.classList.add('card-link');
+        link.target = '_blank';
 
         card.appendChild(title);
         card.appendChild(link);
