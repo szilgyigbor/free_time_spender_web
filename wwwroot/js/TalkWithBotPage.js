@@ -1,10 +1,19 @@
 ﻿const apiKey = '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';
 const sendButton = document.querySelector("#chat-send-button");
+const chatInput = document.getElementById("chat-input");
 let chatFlow = document.querySelector("#chat-messages");
 let chatHistory = "";
 
 
 sendButton.addEventListener("click", sendMessage);
+
+chatInput.addEventListener("keydown", function(event) {
+    if (event.keyCode === 13) {
+      sendMessage();
+    }
+  });
+
+
 
 async function sendMessage()
 {
