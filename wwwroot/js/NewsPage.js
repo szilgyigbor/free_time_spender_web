@@ -1,8 +1,5 @@
-﻿const api_key = "ad7b28e663bc4ae1a0037d4aa79f32a0";
-const country = "hu";
+﻿const getNews = "/api/getnews";
 let placeHolder = document.querySelector("#cards");
-
-
 
 
 fillCards();
@@ -13,7 +10,6 @@ async function fillCards()
     let news = await getData();
 
     news.forEach(element => {
-        console.log(element.title);
         let card = document.createElement('div');
         card.classList.add('card');
 
@@ -38,11 +34,8 @@ async function fillCards()
 
 async function getData() 
 {
-    const response = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${api_key}`);
+    const response = await fetch(getNews);
     const data = await response.json();
     console.log(data);
     return data.articles;
 }
-              
-getData();
-
