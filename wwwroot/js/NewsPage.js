@@ -1,4 +1,4 @@
-﻿const getNews = "/api/getnews";
+﻿const getNewsUrl = "/api/getnews";
 let placeHolder = document.querySelector("#cards");
 
 
@@ -34,7 +34,7 @@ async function fillCards()
 
 async function getData() 
 {
-    const response = await fetch(getNews);
+    const response = await fetch(getNewsUrl);
     const data = await response.json();
     console.log(data);
     return data.articles;
