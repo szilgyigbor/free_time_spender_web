@@ -1,3 +1,5 @@
+using FreeTimeSpenderWeb.Sevices;
+
 namespace FreeTimeSpenderWeb
 {
     public class Program
@@ -8,6 +10,8 @@ namespace FreeTimeSpenderWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHttpClient();
+            builder.Services.AddTransient<NewsService>();
 
             var app = builder.Build();
 
