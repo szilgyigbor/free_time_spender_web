@@ -1,5 +1,4 @@
-﻿const apiKey = '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';
-const sendButton = document.querySelector("#chat-send-button");
+﻿const sendButton = document.querySelector("#chat-send-button");
 const chatInput = document.getElementById("chat-input");
 let chatFlow = document.querySelector("#chat-messages");
 let chatHistory = "";
@@ -14,30 +13,20 @@ chatInput.addEventListener("keydown", function(event) {
   });
 
 
-
 async function sendMessage()
 {
     let messageField = document.querySelector("#chat-input");
     let newMessage = messageField.value;
-    console.log(newMessage);
     chatHistory += newMessage + "\n"
     messageField.value = "";
 
-    const response = await fetch('https://api.openai.com/v1/completions', {
+    const response = await fetch('/api/getbotanswer', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            model: "text-davinci-003",
-            prompt: chatHistory,
-            temperature: 0.5,
-            max_tokens: 256,
-            top_p: 1,
-            n: 1,
-        }),
-    });
+        body: JSON.stringify(chatHistory)
+      });
 
         
     const data = await response.json();
