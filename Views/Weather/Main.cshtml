@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Weather";
+}
+
+@section extraHead
+{
+    <link rel="stylesheet" href="~/css/WeatherPage.css"/>
+    <script src="~/js/WeatherPage.js" defer></script>
+}
+
+<div>
+    <h1 id="welcomeString">Weather Forecast</h1>
+    <div id="weather"></div>
+    <input type="text" id="location-input">
+    <button id="location-send-button">Send</button>
+</div>
