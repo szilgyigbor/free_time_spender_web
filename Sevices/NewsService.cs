@@ -6,27 +6,28 @@ using System.Net.Http.Json;
 using FreeTimeSpenderWeb.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace FreeTimeSpenderWeb.Sevices
 {
     public class NewsService
     {
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient _httpClient;
 
-        public NewsService(IHttpClientFactory clientFactory)
+        public NewsService(HttpClient httpClient)
         {
-            _clientFactory = clientFactory;
+            _httpClient = httpClient;
         }
 
         public async Task<string> GetNewsAsync(string apiKey)
         {
-            var client = _clientFactory.CreateClient();
             var country = "hu";
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://newsapi.org/v2/top-headlines?country={country}&apiKey={apiKey}");
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-            client.DefaultRequestHeaders.Add("User-Agent", "Free-Time-Spender");
+            request.Headers.Add("Authorization", "Bearer " + apiKey);
+            request.Headers.Add("User-Agent", "Free-Time-Spender");
 
-            var response = await client.GetAsync($"https://newsapi.org/v2/top-headlines?country={country}&apiKey={apiKey}");
+            var response = await _httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
