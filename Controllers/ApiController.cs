@@ -15,12 +15,14 @@ namespace FreeTimeSpenderWeb.Controllers
         private readonly IConfiguration _configuration;
         private readonly NewsService _newsService;
         private readonly BotService _botService;
+        private readonly WeatherService _weatherService;
 
-        public ApiController(IConfiguration configuration, NewsService newsService, BotService botService)
+        public ApiController(IConfiguration configuration, NewsService newsService, BotService botService, WeatherService weatherService)
         {
             _configuration = configuration;
             _newsService = newsService;
             _botService = botService;
+            _weatherService = weatherService;
         }
 
 
@@ -60,6 +62,23 @@ namespace FreeTimeSpenderWeb.Controllers
 
         }
 
+
+        [Route("api/getweather")]
+        [HttpPost]
+        public async Task<IActionResult> GetWeatherAsync([FromBody] string location)
+        {
+            var weatherApiKey = _configuration["WeatherApiKey"];
+            var result = await _weatherService.GetWeatherAsync(weatherApiKey, location);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
 
     }
 }
