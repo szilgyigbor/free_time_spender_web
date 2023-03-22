@@ -1,10 +1,12 @@
 ﻿let amobaButton = document.querySelector("#Amoba");
 let newsButton = document.querySelector("#News");
-let talkWithBotButton = document.querySelector("#Bot");
+let botButton = document.querySelector("#Bot");
+let weatherButton = document.querySelector("#Weather");
 
 amobaButton.addEventListener("click", navigateToAmoba);
 newsButton.addEventListener("click", navigateToNews);
-talkWithBotButton.addEventListener("click", navigateToBot);
+botButton.addEventListener("click", navigateToBot);
+weatherButton.addEventListener("click", navigateToWeather);
 
 
 function navigateToAmoba() {
@@ -19,4 +21,9 @@ function navigateToNews() {
 
 function navigateToBot() {
     window.location.href = "/TalkWithBot/Main";
+}
+
+
+function navigateToWeather() {
+    window.location.href = "/Weather/Main";
 }
