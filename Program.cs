@@ -13,6 +13,7 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddHttpClient();
             builder.Services.AddTransient<NewsService>();
             builder.Services.AddTransient<BotService>();
+            builder.Services.AddTransient<WeatherService>();
 
             var app = builder.Build();
 
