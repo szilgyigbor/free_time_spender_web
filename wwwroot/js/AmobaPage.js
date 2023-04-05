@@ -51,7 +51,7 @@ function gameLogic(cell)
         checkWin(lastMove);
         if (!gameEnd)
         {
-            setTimeout(aiMove, 500);
+            setTimeout(aiMove, 300);
         }
     }
     
