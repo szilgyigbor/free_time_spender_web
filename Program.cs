@@ -14,6 +14,7 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<NewsService>();
             builder.Services.AddTransient<BotService>();
             builder.Services.AddTransient<WeatherService>();
+            builder.Services.AddTransient<FlickrService>();
 
             var app = builder.Build();
 
