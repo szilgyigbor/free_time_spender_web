@@ -1,6 +1,7 @@
 ﻿const sendButton = document.querySelector("#location-send-button");
 const locationInput = document.getElementById("location-input");
 let weatherInfo = document.querySelector("#weather");
+//let imagePlace = document.querySelector("#image-place");
 
 
 sendButton.addEventListener("click", sendLocation);
@@ -17,7 +18,7 @@ async function sendLocation() {
     let location = locationInput.value;
     locationInput.value = "";
 
-    const response = await fetch('/api/getweather', {
+    const pictureResponse = await fetch('/api/getimage', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -25,19 +26,43 @@ async function sendLocation() {
         body: JSON.stringify(location)
     });
 
+    const pictureData = await pictureResponse.json();
 
-    const data = await response.json();
-    console.log(data);
+    console.log(pictureData);
+
+    let largepicture = pictureData.sizes.size.find(size => size.label === "Large");
+
+    let pictureUrl = largepicture.source;
+
+    console.log(pictureUrl);
+    document.body.style.backgroundImage = "url('" + pictureUrl + "')";
+
+    const weatherResponse = await fetch('/api/getweather', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(location)
+    });
+
+    const weatherData = await weatherResponse.json();
+    weatherInfo.style.display = 'block';
+
+    
+    console.log(weatherData);
 
     weatherInfo.innerHTML = `
         <p>
-            <span>Country:  ${data.location.country}</span> 
+            <span>Country:  ${weatherData.location.country}</span> 
             <br>
-            <span>Name:  ${data.location.name}</span> 
+            <span>Name:  ${weatherData.location.name}</span> 
             <br>
-            <span>Temperature:  ${data.current.temp_c}°C</span> 
-            <img src=${data.current.condition.icon} alt="ikon">
+            <span>Temperature:  ${weatherData.current.temp_c}°C</span> 
+            <br>
+            <span><img src=${weatherData.current.condition.icon} alt="ikon"> ( ${weatherData.current.condition.text} ) </span> 
         </p>
     `;
+
+    //imagePlace.innerHTML = `<img src=${pictureUrl} alt="picture">`;
 
 }
