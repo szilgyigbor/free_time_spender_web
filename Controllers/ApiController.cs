@@ -16,13 +16,16 @@ namespace FreeTimeSpenderWeb.Controllers
         private readonly NewsService _newsService;
         private readonly BotService _botService;
         private readonly WeatherService _weatherService;
+        private readonly FlickrService _flickrService;
 
-        public ApiController(IConfiguration configuration, NewsService newsService, BotService botService, WeatherService weatherService)
+        public ApiController(IConfiguration configuration, NewsService newsService, BotService botService, WeatherService weatherService,
+            FlickrService flickrService)
         {
             _configuration = configuration;
             _newsService = newsService;
             _botService = botService;
             _weatherService = weatherService;
+            _flickrService = flickrService;
         }
 
 
@@ -79,6 +82,25 @@ namespace FreeTimeSpenderWeb.Controllers
             }
 
         }
+
+
+        [Route("api/getimage")]
+        [HttpPost]
+        public async Task<IActionResult> GetImageAsync([FromBody] string location)
+        {
+            var flickrApiKey = _configuration["FlickrApiKey"];
+            var result = await _flickrService.GetPictureUrlAsync(flickrApiKey, location);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
+
 
     }
 }
