@@ -34,7 +34,7 @@ namespace FreeTimeSpenderWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNewsAsync()
         {
-            var newsApiKey = _configuration["NewsApiKey"];
+            var newsApiKey = Environment.GetEnvironmentVariable("NewsApiKey");
             var result = await _newsService.GetNewsAsync(newsApiKey);
             if (result != null)
             {
@@ -52,7 +52,7 @@ namespace FreeTimeSpenderWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> GetBotAnswerAsync([FromBody] string newMessage)
         {
-            var botApiKey = _configuration["BotApiKey"];
+            var botApiKey = Environment.GetEnvironmentVariable("BotApiKey");
             var result = await _botService.SendPostRequestAsync(botApiKey, newMessage);
             if (result != null)
             {
@@ -70,7 +70,7 @@ namespace FreeTimeSpenderWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> GetWeatherAsync([FromBody] string location)
         {
-            var weatherApiKey = _configuration["WeatherApiKey"];
+            var weatherApiKey = Environment.GetEnvironmentVariable("WeatherApiKey");
             var result = await _weatherService.GetWeatherAsync(weatherApiKey, location);
             if (result != null)
             {
@@ -88,7 +88,7 @@ namespace FreeTimeSpenderWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> GetImageAsync([FromBody] string location)
         {
-            var flickrApiKey = _configuration["FlickrApiKey"];
+            var flickrApiKey = Environment.GetEnvironmentVariable("FlickrApiKey");
             var result = await _flickrService.GetPictureUrlAsync(flickrApiKey, location);
             if (result != null)
             {
