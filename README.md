@@ -19,9 +19,9 @@ It pairs an ASP.Net backend with a dynamic JavaScript frontend to deliver a seam
 
 For the application to function correctly, it requires API keys from the following providers:
 
-- flickr.com
-- newsapi.org
-- openai.com
+- [flickr.com](https://www.flickr.com/)
+- [newsapi.org](https://www.newsapi.org/)
+- [openai.com](https://www.openai.com/)
 - [weather.com](https://www.weatherapi.com/)
 
 Please refer to the respective API documentation to learn how to obtain these keys. 
