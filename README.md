@@ -3,7 +3,7 @@
 ## Introduction
 
 This is a versatile ASP.Net MVC application designed to provide a variety of features for entertainment and information. It's perfect for users looking for a quick diversion or to stay updated on current events and weather.
-It pairs a robust ASP.Net backend with a dynamic JavaScript frontend to deliver a seamless, responsive user experience.
+It pairs an ASP.Net backend with a dynamic JavaScript frontend to deliver a seamless, responsive user experience.
 
 ## Features
 
