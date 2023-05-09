@@ -22,7 +22,7 @@ For the application to function correctly, it requires API keys from the followi
 - flickr.com
 - newsapi.org
 - openai.com
-- weather.com
+- [weather.com](https://www.weatherapi.com/)
 
 Please refer to the respective API documentation to learn how to obtain these keys. 
 
