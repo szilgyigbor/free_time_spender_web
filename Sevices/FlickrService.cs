@@ -20,10 +20,10 @@ namespace FreeTimeSpenderWeb.Sevices
             string json = await response.Content.ReadAsStringAsync();
             JObject jsonResponse = JObject.Parse(json);
 
-            JArray photosArray = (JArray)jsonResponse["photos"]["photo"];
+            JArray photosArray = (JArray)jsonResponse["photos"]!["photo"]!;
             
             int randomIndex = new Random().Next(0, photosArray.Count);
-            string id = photosArray[randomIndex].Value<string>("id");
+            string id = photosArray[randomIndex].Value<string>("id")!;
             return id;
 
         }

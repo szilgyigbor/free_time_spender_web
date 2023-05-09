@@ -24,7 +24,6 @@ namespace FreeTimeSpenderWeb.Sevices
             var country = "hu";
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://newsapi.org/v2/top-headlines?country={country}&apiKey={apiKey}");
 
-            //request.Headers.Add("Authorization", "Bearer " + apiKey);
             request.Headers.Add("User-Agent", "Free-Time-Spender");
 
             var response = await _httpClient.SendAsync(request);

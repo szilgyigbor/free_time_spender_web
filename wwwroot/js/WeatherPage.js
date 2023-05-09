@@ -1,8 +1,6 @@
 ﻿const sendButton = document.querySelector("#location-send-button");
 const locationInput = document.getElementById("location-input");
 let weatherInfo = document.querySelector("#weather");
-//let imagePlace = document.querySelector("#image-place");
-
 
 sendButton.addEventListener("click", sendLocation);
 
@@ -62,7 +60,5 @@ async function sendLocation() {
             <span><img src=${weatherData.current.condition.icon} alt="ikon"> ( ${weatherData.current.condition.text} ) </span> 
         </p>
     `;
-
-    //imagePlace.innerHTML = `<img src=${pictureUrl} alt="picture">`;
 
 }
