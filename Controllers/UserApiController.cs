@@ -12,7 +12,8 @@ namespace FreeTimeSpenderWeb.Controllers
         [HttpPost]
         public async Task<SignUpDataModel> SignUp([FromBody] SignUpDataModel signUpData)
         {
-            return signUpData;
+            SignUpDataModel signUpDataModel = signUpData;
+            return signUpDataModel;
         }
     }
 }
