@@ -1,4 +1,7 @@
 using FreeTimeSpenderWeb.Sevices;
+using Microsoft.EntityFrameworkCore;
+using FreeTimeSpenderWeb.Models;
+using FreeTimeSpenderWeb.Data;
 
 namespace FreeTimeSpenderWeb
 {
@@ -11,6 +14,11 @@ namespace FreeTimeSpenderWeb
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpClient();
+
+            builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")
+            ));
+
             builder.Services.AddTransient<NewsService>();
             builder.Services.AddTransient<BotService>();
             builder.Services.AddTransient<WeatherService>();
