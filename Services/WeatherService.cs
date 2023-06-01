@@ -2,7 +2,7 @@
 
 namespace FreeTimeSpenderWeb.Services
 {
-    public class WeatherService
+    public class WeatherService : IWeatherService
     {
         private readonly HttpClient _httpClient;
 
