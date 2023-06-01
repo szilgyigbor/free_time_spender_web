@@ -20,6 +20,7 @@ namespace FreeTimeSpenderWeb
                 builder.Configuration.GetConnectionString("DefaultConnection")
             ));
             builder.Services.AddScoped<INewsService, NewsService>();
+            builder.Services.AddScoped<IBotService, BotService>();
 
             builder.Services.AddTransient<NewsService>();
             builder.Services.AddTransient<BotService>();

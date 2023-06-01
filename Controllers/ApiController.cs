@@ -10,11 +10,11 @@ namespace FreeTimeSpenderWeb.Controllers
     public class ApiController : ControllerBase
     {
         private readonly INewsService _newsService;
-        private readonly BotService _botService;
+        private readonly IBotService _botService;
         private readonly WeatherService _weatherService;
         private readonly FlickrService _flickrService;
 
-        public ApiController(INewsService newsService, BotService botService, WeatherService weatherService,
+        public ApiController(INewsService newsService, IBotService botService, WeatherService weatherService,
             FlickrService flickrService)
         {
             _newsService = newsService;

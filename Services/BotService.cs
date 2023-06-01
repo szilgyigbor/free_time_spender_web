@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
+using FreeTimeSpenderWeb.Services.Interfaces;
 
 
 namespace FreeTimeSpenderWeb.Services
 {
-    public class BotService
+    public class BotService : IBotService
     {
         private readonly HttpClient _httpClient;
 
