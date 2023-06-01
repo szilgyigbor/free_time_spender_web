@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
+using FreeTimeSpenderWeb.Services.Interfaces;
 
 namespace FreeTimeSpenderWeb.Services
 {
-    public class FlickrService
+    public class FlickrService : IFlickrService
     {
         private readonly HttpClient _httpClient;
 

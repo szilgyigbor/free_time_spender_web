@@ -21,6 +21,7 @@ namespace FreeTimeSpenderWeb
             ));
             builder.Services.AddScoped<INewsService, NewsService>();
             builder.Services.AddScoped<IBotService, BotService>();
+            builder.Services.AddScoped<IFlickrService, FlickrService>();
 
             builder.Services.AddTransient<NewsService>();
             builder.Services.AddTransient<BotService>();

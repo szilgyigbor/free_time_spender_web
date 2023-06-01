@@ -12,10 +12,10 @@ namespace FreeTimeSpenderWeb.Controllers
         private readonly INewsService _newsService;
         private readonly IBotService _botService;
         private readonly WeatherService _weatherService;
-        private readonly FlickrService _flickrService;
+        private readonly IFlickrService _flickrService;
 
         public ApiController(INewsService newsService, IBotService botService, WeatherService weatherService,
-            FlickrService flickrService)
+            IFlickrService flickrService)
         {
             _newsService = newsService;
             _botService = botService;
