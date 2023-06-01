@@ -1,4 +1,4 @@
-﻿using FreeTimeSpenderWeb.Sevices;
+﻿using FreeTimeSpenderWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using FreeTimeSpenderWeb.Models;
 
