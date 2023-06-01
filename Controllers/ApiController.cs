@@ -1,4 +1,5 @@
-﻿using FreeTimeSpenderWeb.Sevices;
+﻿using FreeTimeSpenderWeb.Services;
+using FreeTimeSpenderWeb.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -8,12 +9,12 @@ namespace FreeTimeSpenderWeb.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        private readonly NewsService _newsService;
+        private readonly INewsService _newsService;
         private readonly BotService _botService;
         private readonly WeatherService _weatherService;
         private readonly FlickrService _flickrService;
 
-        public ApiController(NewsService newsService, BotService botService, WeatherService weatherService,
+        public ApiController(INewsService newsService, BotService botService, WeatherService weatherService,
             FlickrService flickrService)
         {
             _newsService = newsService;
