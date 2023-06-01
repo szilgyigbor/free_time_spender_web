@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 
-namespace FreeTimeSpenderWeb.Sevices
+namespace FreeTimeSpenderWeb.Services
 {
     public class FlickrService
     {

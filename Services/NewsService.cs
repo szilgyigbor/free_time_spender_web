@@ -7,10 +7,11 @@ using FreeTimeSpenderWeb.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using FreeTimeSpenderWeb.Services.Interfaces;
 
-namespace FreeTimeSpenderWeb.Sevices
+namespace FreeTimeSpenderWeb.Services
 {
-    public class NewsService
+    public class NewsService : INewsService
     {
         private readonly HttpClient _httpClient;
 

@@ -1,4 +1,6 @@
-﻿namespace FreeTimeSpenderWeb.Sevices
+﻿using FreeTimeSpenderWeb.Services.Interfaces;
+
+namespace FreeTimeSpenderWeb.Services
 {
     public class WeatherService
     {

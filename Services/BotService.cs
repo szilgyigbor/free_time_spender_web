@@ -2,7 +2,7 @@
 using System.Text;
 
 
-namespace FreeTimeSpenderWeb.Sevices
+namespace FreeTimeSpenderWeb.Services
 {
     public class BotService
     {
