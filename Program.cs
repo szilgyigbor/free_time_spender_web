@@ -19,15 +19,15 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")
             ));
-            builder.Services.AddScoped<INewsService, NewsService>();
-            builder.Services.AddScoped<IBotService, BotService>();
-            builder.Services.AddScoped<IFlickrService, FlickrService>();
-            builder.Services.AddScoped<IWeatherService, WeatherService>();
+            builder.Services.AddTransient<INewsService, NewsService>();
+            builder.Services.AddTransient<IBotService, BotService>();
+            builder.Services.AddTransient<IFlickrService, FlickrService>();
+            builder.Services.AddTransient<IWeatherService, WeatherService>();
 
-            builder.Services.AddTransient<NewsService>();
+            /*builder.Services.AddTransient<NewsService>();
             builder.Services.AddTransient<BotService>();
             builder.Services.AddTransient<WeatherService>();
-            builder.Services.AddTransient<FlickrService>();
+            builder.Services.AddTransient<FlickrService>();*/
 
             var app = builder.Build();
 
