@@ -2,18 +2,19 @@
 
 ## Introduction
 
-This is a versatile ASP.Net MVC application designed to provide a variety of features for entertainment and information. It's perfect for users looking for a quick diversion or to stay updated on current events and weather.
-It pairs an ASP.Net backend with a dynamic JavaScript frontend to deliver a seamless, responsive user experience.
+This is a versatile ASP.Net API application designed to provide a variety of features for entertainment and information. It's perfect for applications in need of diverse data sources such as current events, weather data, chatbot functionality, and more.
+
+Originally designed as an ASP.Net MVC application, Free Time Spender has now been refactored to serve as a backend API service. This change provides greater flexibility and decoupling, allowing frontend applications to interact with the API according to their specific needs.
 
 ## Features
 
-1. **Chat with ChatGPT**: This feature uses the OpenAI API to facilitate engaging and human-like conversations with the AI model ChatGPT. Perfect for when you're looking for an interactive discussion.
+1. **Chat with ChatGPT API**: This feature uses the OpenAI API to facilitate engaging and human-like conversations with the AI model ChatGPT. It provides an interactive discussion endpoint for frontend applications.
 
-2. **Play Amoeba (or Gomoku)**: A classic strategy game to test your skills and pass the time. The game has a simple and intuitive interface.
+2. **Play Amoeba (or Gomoku) API**: This API provides the rules and game logic for the classic strategy game. This allows frontend applications to focus on the user interface and interaction.
 
-3. **News Reader**: Stay updated on the latest news. This feature uses the NewsAPI.org API to pull in recent news articles from a variety of sources.
+3. **News Reader API**: Stay updated on the latest news. This feature uses the NewsAPI.org API to pull in recent news articles from a variety of sources.
 
-4. **Weather Checker**: Check the current weather in your location or anywhere in the world. It uses the Weather.com API to provide accurate, up-to-date weather information.
+4. **Weather Checker API**: Check the current weather in any location in the world. It uses the Weather.com API to provide accurate, up-to-date weather information.
 
 ## Dependencies
 
@@ -37,8 +38,7 @@ To get started with this project, follow these steps:
   - "WeatherApiKey"
   - "FlickrApiKey"
 3. Build the application in your preferred .NET environment.
-4. Run the application and explore the features.
+4. Run the application and explore the API endpoints.
 
-## Contact
 
-If you have questions or comments about this project, please feel free to contact me at [szilgyigbor@gmail.com].
+Note: This is a backend API service. For a frontend application that interacts with this API, please see [Time Spender Frontend](https://github.com/szilgyigbor/time-spender-frontend).
