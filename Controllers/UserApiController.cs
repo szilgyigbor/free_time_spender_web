@@ -10,9 +10,9 @@ namespace FreeTimeSpenderWeb.Controllers
     {
         [Route("signup")]
         [HttpPost]
-        public async Task<LoginDataModel> SignUp([FromBody] LoginDataModel signUpData)
+        public async Task<UserDataModel> SignUp([FromBody] UserDataModel signUpData)
         {
-            LoginDataModel LoginDataModel = signUpData;
+            UserDataModel LoginDataModel = signUpData;
             return LoginDataModel;
         }
     }
