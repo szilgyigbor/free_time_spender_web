@@ -20,8 +20,14 @@ namespace FreeTimeSpenderWeb.Services
             PasswordHasher = new PasswordHasher<UserDataModel>();
         }
 
+
         public async Task RegisterUser(UserDataModel registerData)
         {
+            if (await RegistrationIsValid(registerData) is false)
+            {
+                throw new ArgumentException("Registration data is invalid.", nameof(registerData));
+            }
+
             var user = new UserDataModel()
             {
                 Email = registerData.Email,
@@ -32,7 +38,7 @@ namespace FreeTimeSpenderWeb.Services
             user.Password = PasswordHasher.HashPassword(user, registerData.Password);
 
 
-            _context.SignUpDatas.Add(user);
+            await _context.SignUpDatas.AddAsync(user);
             await _context.SaveChangesAsync();
 
         }
