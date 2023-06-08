@@ -24,6 +24,28 @@ namespace FreeTimeSpenderWeb.Controllers
         }
 
 
+        [Route("login")]
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] UserDataModel loginData)
+        {
+            if (await _userService.UserIsRegistered(loginData))
+            {
+                // Creating the security context
+                var claims = await _userService.CreateClaims(loginData);
+
+                var expiresAt = DateTime.UtcNow.AddHours(1);
+                return Ok(new
+                {
+                    access_token = CreateToken(claims, expiresAt),
+                    expires_at = expiresAt,
+                });
+            }
+
+            ModelState.AddModelError("Unauthorized", "You are not authorized to access the endpoint.");
+            return Unauthorized(ModelState);
+        }
+
+
         [Route("signup")]
         [HttpPost]
         public async Task<IActionResult> SignUp([FromBody] UserDataModel signUpData)
