@@ -6,7 +6,6 @@ using FreeTimeSpenderWeb.Models;
 using FreeTimeSpenderWeb.Services.Interfaces;
 
 
-
 namespace FreeTimeSpenderWeb.Services
 {
     public class AccountService
@@ -43,7 +42,7 @@ namespace FreeTimeSpenderWeb.Services
             await _context.SaveChangesAsync();
 
         }
-
+        
 
         public async Task<ClaimsPrincipal> LoginUser(UserDataModel loginData)
         {
