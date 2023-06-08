@@ -37,6 +37,25 @@ namespace FreeTimeSpenderWeb.Services
 
         }
 
+
+        public async Task<bool> RegistrationIsValid(UserDataModel userData)
+        {
+            var user = await GetUserByUsername(userData.Username);
+            if (user != null)
+            {
+                return false;
+            }
+
+            user = await GetUserByEmail(userData.Email);
+            if (user != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
         public async Task<UserDataModel?> GetUserById(int Id)
         {
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Id == Id);
