@@ -1,5 +1,6 @@
 ﻿using FreeTimeSpenderWeb.Services;
 using FreeTimeSpenderWeb.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -7,6 +8,7 @@ namespace FreeTimeSpenderWeb.Controllers
 {
     
     [ApiController]
+    [Authorize]
     public class ApiController : ControllerBase
     {
         private readonly INewsService _newsService;
