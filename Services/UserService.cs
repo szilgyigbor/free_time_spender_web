@@ -55,7 +55,7 @@ namespace FreeTimeSpenderWeb.Services
 
         public async Task<IEnumerable<Claim>> CreateClaims(UserDataModel userData)
         {
-            if (!await UserIsValid(userData))
+            if (!await UserIsRegistered(userData))
             {
                 throw new ArgumentException("Credential contains invalid information.", nameof(userData));
             }
@@ -72,7 +72,7 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public async Task<bool> UserIsValid(UserDataModel userData)
+        public async Task<bool> UserIsRegistered(UserDataModel userData)
         {
             var user = await GetUserByUsername(userData.Username);
             if (user == null)
