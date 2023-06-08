@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 
 namespace FreeTimeSpenderWeb.Controllers
@@ -29,5 +30,24 @@ namespace FreeTimeSpenderWeb.Controllers
             UserDataModel LoginDataModel = signUpData;
             return LoginDataModel;
         }
+
+
+        private string CreateToken(IEnumerable<Claim> claims, DateTime expiresAt)
+        {
+            var secretKey = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FreeTimeSpenderSecretKey"));
+
+            var jwt = new JwtSecurityToken(
+                claims: claims,
+                notBefore: DateTime.UtcNow,
+                expires: expiresAt,
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(secretKey),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
+        }
+
     }
 }
