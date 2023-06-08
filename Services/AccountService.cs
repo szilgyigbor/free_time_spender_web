@@ -72,6 +72,20 @@ namespace FreeTimeSpenderWeb.Services
             return claims;
         }
 
+
+        public async Task<bool> UserIsValid(UserDataModel userData)
+        {
+            var user = await GetUserByUsername(userData.Username);
+            if (user == null)
+            {
+                return false;
+            }
+
+            var result = PasswordHasher.VerifyHashedPassword(user, user.Password, userData.Password);
+            return result == PasswordVerificationResult.Success;
+        }
+
+
         public async Task<bool> RegistrationIsValid(UserDataModel userData)
         {
             var user = await GetUserByUsername(userData.Username);
@@ -95,10 +109,12 @@ namespace FreeTimeSpenderWeb.Services
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Id == Id);
         }
 
+
         private async Task<UserDataModel?> GetUserByUsername(string username)
         {
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Username == username);
         }
+
 
         private async Task<UserDataModel?> GetUserByEmail(string email)
         {
