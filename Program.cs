@@ -2,6 +2,9 @@ using FreeTimeSpenderWeb.Services;
 using Microsoft.EntityFrameworkCore;
 using FreeTimeSpenderWeb.Data;
 using FreeTimeSpenderWeb.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace FreeTimeSpenderWeb
 {
@@ -13,6 +16,26 @@ namespace FreeTimeSpenderWeb
 
             // Add services to the container.
             builder.Services.AddControllers();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer("Bearer", options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FreeTimeSpenderSecretKey"))),
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ClockSkew = TimeSpan.Zero,
+                };
+            });
+
             builder.Services.AddHttpClient();
 
             builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseSqlServer(
