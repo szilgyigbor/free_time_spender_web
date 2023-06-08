@@ -53,6 +53,25 @@ namespace FreeTimeSpenderWeb.Services
             return new ClaimsPrincipal(identity);
         }
 
+
+        public async Task<IEnumerable<Claim>> CreateClaims(UserDataModel userData)
+        {
+            if (await UserIsValid(userData) is false)
+            {
+                throw new ArgumentException("Credential contains invalid information.", nameof(userData));
+            }
+            var user = await GetUserByUsername(userData.Username);
+
+            var claims = new List<Claim>
+            {
+                new (ClaimTypes.Name, user.Username),
+                new (ClaimTypes.Email, user.Email),
+                new ("UserId", user.Id.ToString()),
+            };
+
+            return claims;
+        }
+
         public async Task<bool> RegistrationIsValid(UserDataModel userData)
         {
             var user = await GetUserByUsername(userData.Username);
