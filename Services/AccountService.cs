@@ -14,6 +14,7 @@ namespace FreeTimeSpenderWeb.Services
         private readonly FreeTimeSpenderContext _context;
         private PasswordHasher<UserDataModel> PasswordHasher { get; }
 
+
         public AccountService(FreeTimeSpenderContext context)
         {
             _context = context;
@@ -43,6 +44,14 @@ namespace FreeTimeSpenderWeb.Services
 
         }
 
+
+        public async Task<ClaimsPrincipal> LoginUser(UserDataModel loginData)
+        {
+            var claims = await CreateClaims(loginData);
+            var identity = new ClaimsIdentity(claims, "LoginCookieAuth");
+
+            return new ClaimsPrincipal(identity);
+        }
 
         public async Task<bool> RegistrationIsValid(UserDataModel userData)
         {
