@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace FreeTimeSpenderWeb.Controllers
@@ -25,10 +26,23 @@ namespace FreeTimeSpenderWeb.Controllers
 
         [Route("signup")]
         [HttpPost]
-        public async Task<UserDataModel> SignUp([FromBody] UserDataModel signUpData)
+        public async Task<IActionResult> SignUp([FromBody] UserDataModel signUpData)
         {
-            UserDataModel LoginDataModel = signUpData;
-            return LoginDataModel;
+            if (await _userService.RegistrationIsValid(signUpData))
+            {
+                await _userService.RegisterUser(signUpData);
+                
+                var claims = await _userService.CreateClaims(signUpData);
+                var expiresAt = DateTime.UtcNow.AddHours(1);
+
+                return Ok(new
+                {
+                    access_token = CreateToken(claims, expiresAt),
+                    expires_at = expiresAt,
+                });
+            }
+
+            return Conflict();
         }
 
 
