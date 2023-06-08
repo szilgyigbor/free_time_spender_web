@@ -36,5 +36,20 @@ namespace FreeTimeSpenderWeb.Services
             await _context.SaveChangesAsync();
 
         }
+
+        public async Task<UserDataModel?> GetUserById(int Id)
+        {
+            return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Id == Id);
+        }
+
+        private async Task<UserDataModel?> GetUserByUsername(string username)
+        {
+            return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Username == username);
+        }
+
+        private async Task<UserDataModel?> GetUserByEmail(string email)
+        {
+            return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Email == email);
+        }
     }
 }
