@@ -2,7 +2,7 @@
 
 namespace FreeTimeSpenderWeb.Models
 {
-    public class SignUpDataModel
+    public class LoginDataModel
     {
         [Key]
         public int Id { get; set; }
