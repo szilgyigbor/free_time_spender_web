@@ -8,13 +8,13 @@ using FreeTimeSpenderWeb.Services.Interfaces;
 
 namespace FreeTimeSpenderWeb.Services
 {
-    public class AccountService
+    public class UserService : IUserService
     {
         private readonly FreeTimeSpenderContext _context;
         private PasswordHasher<UserDataModel> PasswordHasher { get; }
 
 
-        public AccountService(FreeTimeSpenderContext context)
+        public UserService(FreeTimeSpenderContext context)
         {
             _context = context;
             PasswordHasher = new PasswordHasher<UserDataModel>();
@@ -55,7 +55,7 @@ namespace FreeTimeSpenderWeb.Services
 
         public async Task<IEnumerable<Claim>> CreateClaims(UserDataModel userData)
         {
-            if (await UserIsValid(userData) is false)
+            if (!await UserIsValid(userData))
             {
                 throw new ArgumentException("Credential contains invalid information.", nameof(userData));
             }
