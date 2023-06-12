@@ -1,12 +1,10 @@
-﻿using FreeTimeSpenderWeb.Services;
+﻿using FreeTimeSpenderWeb.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using FreeTimeSpenderWeb.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace FreeTimeSpenderWeb.Controllers
@@ -15,10 +13,10 @@ namespace FreeTimeSpenderWeb.Controllers
     [ApiController]
     public class UserApiController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
 
-        public UserApiController(UserService userService)
+        public UserApiController(IUserService userService)
         {
             _userService = userService;
         }
@@ -50,6 +48,7 @@ namespace FreeTimeSpenderWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp([FromBody] UserDataModel signUpData)
         {
+
             if (await _userService.RegistrationIsValid(signUpData))
             {
                 await _userService.RegisterUser(signUpData);
