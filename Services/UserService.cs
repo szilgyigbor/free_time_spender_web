@@ -31,7 +31,7 @@ namespace FreeTimeSpenderWeb.Services
             var user = new UserDataModel()
             {
                 Email = registerData.Email,
-                Username = registerData.Email,
+                Username = registerData.Username,
                 
             };
 
