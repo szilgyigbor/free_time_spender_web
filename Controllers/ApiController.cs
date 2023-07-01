@@ -1,5 +1,4 @@
-﻿using FreeTimeSpenderWeb.Services;
-using FreeTimeSpenderWeb.Services.Interfaces;
+﻿using FreeTimeSpenderWeb.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
