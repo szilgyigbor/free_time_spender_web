@@ -30,16 +30,14 @@ namespace FreeTimeSpenderWeb.Controllers
             {
                 // Creating the security context
                 var claims = await _userService.CreateClaims(loginData);
-
-
-
                 var expiresAt = DateTime.UtcNow.AddHours(1);
+                
                 return Ok(new
                 {
                     access_token = CreateToken(claims, expiresAt),
                     expires_at = expiresAt,
-                    username = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
-                    email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value
+                    username = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value,
+                    email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value
                 });
             }
 
