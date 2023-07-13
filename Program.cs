@@ -39,8 +39,9 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddHttpClient();
 
             builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseSqlServer(
-                builder.Configuration.GetConnectionString("DefaultConnection")?.Replace("{SQLPassword}", Environment.GetEnvironmentVariable("SQLPassword")
-            )));
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                ?.Replace("{SQLPassword}", Environment.GetEnvironmentVariable("SQLPassword"))
+            ));
             builder.Services.AddTransient<INewsService, NewsService>();
             builder.Services.AddTransient<IBotService, BotService>();
             builder.Services.AddTransient<IFlickrService, FlickrService>();
