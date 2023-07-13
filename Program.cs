@@ -13,7 +13,7 @@ namespace FreeTimeSpenderWeb
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            
             // Add services to the container.
             builder.Services.AddControllers();
 
@@ -75,9 +75,9 @@ namespace FreeTimeSpenderWeb
                 .AllowAnyHeader());
 
             app.UseAuthorization();
-
+            
             app.MapControllers();
-
+                        
             app.Run();
         }
     }
