@@ -48,7 +48,6 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<IWeatherService, WeatherService>();
             builder.Services.AddTransient<IUserService, UserService>();
 
-
             var port = Environment.GetEnvironmentVariable("PORT");
             if (!string.IsNullOrEmpty(port))
             {
