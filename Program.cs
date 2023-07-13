@@ -48,6 +48,14 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<IWeatherService, WeatherService>();
             builder.Services.AddTransient<IUserService, UserService>();
 
+
+            var port = Environment.GetEnvironmentVariable("PORT");
+            if (!string.IsNullOrEmpty(port))
+            {
+                builder.WebHost.UseUrls($"http://*:{port}");
+            }
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
