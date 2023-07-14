@@ -5,6 +5,7 @@ using FreeTimeSpenderWeb.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using FreeTimeSpenderWeb.Hubs;
 
 namespace FreeTimeSpenderWeb
 {
@@ -54,6 +55,7 @@ namespace FreeTimeSpenderWeb
                 builder.WebHost.UseUrls($"http://*:{port}");
             }
 
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -76,7 +78,9 @@ namespace FreeTimeSpenderWeb
             app.UseAuthorization();
             
             app.MapControllers();
-                        
+
+            app.MapHub<GameHub>("/gamehub");
+
             app.Run();
         }
     }
