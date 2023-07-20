@@ -71,9 +71,11 @@ namespace FreeTimeSpenderWeb
             app.UseRouting();
 
             app.UseCors(policy => policy
-                .WithOrigins("https://www.digitalisjatszoter.hu")
+                .WithOrigins("https://www.digitalisjatszoter.hu", "http://localhost:4200")
+                //.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseAuthorization();
             
