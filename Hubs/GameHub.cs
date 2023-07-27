@@ -1,39 +1,36 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.Authorization;
 using FreeTimeSpenderWeb.Models;
 using System.Collections.Generic;
+using FreeTimeSpenderWeb.Services;
+using FreeTimeSpenderWeb.Services.Interfaces;
 
 namespace FreeTimeSpenderWeb.Hubs
 {
     public class GameHub : Hub
     {
+        private readonly IGameService _gameService;
 
-        private static List<PlayerModel> Players = new List<PlayerModel>();
+        public GameHub(IGameService gameService)
+        {
+            _gameService = gameService;
+
+        }
 
 
         public async Task MoveCharacter(string username, int newX, int newY)
         {
-            PlayerModel player = Players.Find(p => p.Name == username)!;
+            _gameService.UpdatePlayer(username, newX, newY);
 
-            if (player != null)
-            {
-                player.PositionX = newX;
-                player.PositionY = newY;
-            }
+            //await Clients.All.SendAsync("PlayersMoved", _gameService.GetPlayers());
 
-            else { 
-                player = new PlayerModel
-                {
-                    Name = username,
-                    PositionX = newX,
-                    PositionY = newY,
-                    Health = 100
-                };
-
-                Players.Add(player);
-            }
-
-            await Clients.All.SendAsync("PlayersMoved", Players);
         }
+
+
+        public async Task UpdateStatus()
+        {
+            await Clients.All.SendAsync("PlayersMoved", _gameService.GetPlayers());
+        }
+        
+
     }
 }
