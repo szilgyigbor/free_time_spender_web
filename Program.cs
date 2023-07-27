@@ -48,6 +48,7 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<IFlickrService, FlickrService>();
             builder.Services.AddTransient<IWeatherService, WeatherService>();
             builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddSingleton<IGameService, GameService>();
 
             var port = Environment.GetEnvironmentVariable("PORT");
             if (!string.IsNullOrEmpty(port))
