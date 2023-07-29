@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using FreeTimeSpenderWeb.Hubs;
+using Npgsql;
 
 namespace FreeTimeSpenderWeb
 {
@@ -39,10 +40,29 @@ namespace FreeTimeSpenderWeb
 
             builder.Services.AddHttpClient();
 
-            builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseSqlServer(
+
+            var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUrl = new Uri(connectionString!);
+            var userInfo = databaseUrl.UserInfo.Split(':');
+
+            var db = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUrl.Host,
+                Port = databaseUrl.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUrl.LocalPath.TrimStart('/'),
+                //SslMode = SslMode.Require,
+                //TrustServerCertificate = true
+            };
+
+
+            builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseNpgsql(db.ToString()));
+
+            /*builder.Services.AddDbContext<FreeTimeSpenderContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")
                 ?.Replace("{SQLPassword}", Environment.GetEnvironmentVariable("SQLPassword"))
-            ));
+            ));*/
             builder.Services.AddTransient<INewsService, NewsService>();
             builder.Services.AddTransient<IBotService, BotService>();
             builder.Services.AddTransient<IFlickrService, FlickrService>();
