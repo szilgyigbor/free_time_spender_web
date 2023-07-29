@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using FreeTimeSpenderWeb.Models;
-using System.Collections.Generic;
-using FreeTimeSpenderWeb.Services;
 using FreeTimeSpenderWeb.Services.Interfaces;
 
 namespace FreeTimeSpenderWeb.Hubs
@@ -29,8 +26,15 @@ namespace FreeTimeSpenderWeb.Hubs
         public async Task UpdateStatus()
         {
             await Clients.All.SendAsync("PlayersMoved", _gameService.GetPlayers());
+
+            await Clients.All.SendAsync("KilledPlayer", _gameService.CheckPlayers());
+        }
+
+
+        public async Task KillTheBot()
+        {
+            _gameService.KillBot();
         }
         
-
     }
 }
