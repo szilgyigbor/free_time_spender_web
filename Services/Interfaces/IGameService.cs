@@ -10,5 +10,9 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
 
         Task UpdateBot();
 
+        void KillBot();
+
+        string CheckPlayers();
+
     }
 }
