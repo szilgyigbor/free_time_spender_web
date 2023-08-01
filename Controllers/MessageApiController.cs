@@ -1,10 +1,11 @@
 ﻿using FreeTimeSpenderWeb.Models;
 using FreeTimeSpenderWeb.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreeTimeSpenderWeb.Controllers
 {
-    [Route("api/message")]
+    [Route("api/messages")]
     [ApiController]
     public class MessageApiController : ControllerBase
     {
@@ -30,6 +31,7 @@ namespace FreeTimeSpenderWeb.Controllers
             }
         }
 
+        [Authorize]
         [Route("addmessage")]
         [HttpPost]
         public async Task<IActionResult> AddMessage([FromBody] MessageDataModel message)
