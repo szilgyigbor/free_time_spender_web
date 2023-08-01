@@ -27,6 +27,15 @@ namespace FreeTimeSpenderWeb.Services
 
             if (player != null)
             {
+                if (player.PositionX > newX)
+                {
+                    player.IsReversed = true;
+                }
+                else if (player.PositionX < newX)
+                {
+                    player.IsReversed = false;
+                }
+
                 player.PositionX = newX;
                 player.PositionY = newY;
             }
@@ -37,7 +46,8 @@ namespace FreeTimeSpenderWeb.Services
                     Name = username,
                     PositionX = newX,
                     PositionY = newY,
-                    Health = 100
+                    Health = 100,
+                    IsReversed = false
                 };
 
                 _players.Add(player);
@@ -60,7 +70,8 @@ namespace FreeTimeSpenderWeb.Services
                         Name = "Bot",
                         PositionX = 300,
                         PositionY = 300,
-                        Health = 100
+                        Health = 100,
+                        IsReversed = false
                     };
 
                     _players.Add(bot);
@@ -96,6 +107,16 @@ namespace FreeTimeSpenderWeb.Services
                         double length = Math.Sqrt(dx * dx + dy * dy);
                         double directionX = dx / length;
                         double directionY = dy / length;
+
+                        if (bot.PositionX > (bot.PositionX + 2 * ((int)Math.Round(directionX))))
+                        {
+                            bot.IsReversed = true;
+                        }
+
+                        else if (bot.PositionX < (bot.PositionX + 2 * ((int)Math.Round(directionX))))
+                        {
+                            bot.IsReversed = false;
+                        }
 
                         bot.PositionX += 2 * ((int)Math.Round(directionX));
                         bot.PositionY += 2 * ((int)Math.Round(directionY));
