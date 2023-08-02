@@ -9,12 +9,28 @@ namespace FreeTimeSpenderWeb.Services
     public class GameService: IGameService
     {
         private static List<PlayerModel> _players = new List<PlayerModel>();
+        private Random _random = new Random();
+        private bool _gameIsRunning = true;
         private bool _botIsLiving = true;
 
         public GameService()
         {
-            UpdateBot();
+            Task.Run(UpdateGame);
         }
+
+
+        public async Task UpdateGame()
+        {
+            while (_gameIsRunning)
+            {
+                UpdateBot();
+                MoveBullets();
+
+                await Task.Delay(100);
+
+            }
+        }
+
 
         public List<PlayerModel> GetPlayers()
         {
@@ -47,7 +63,8 @@ namespace FreeTimeSpenderWeb.Services
                     PositionX = newX,
                     PositionY = newY,
                     Health = 100,
-                    IsReversed = false
+                    IsReversed = false,
+                    Shooter = username
                 };
 
                 _players.Add(player);
@@ -57,9 +74,9 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public async Task UpdateBot()
+        public void UpdateBot()
         {
-            while (_botIsLiving)
+            if (_botIsLiving)
             {
                 PlayerModel bot = _players.Find(p => p.Name == "Bot")!;
 
@@ -71,7 +88,8 @@ namespace FreeTimeSpenderWeb.Services
                         PositionX = 300,
                         PositionY = 300,
                         Health = 100,
-                        IsReversed = false
+                        IsReversed = false,
+                        Shooter = "Bot"
                     };
 
                     _players.Add(bot);
@@ -83,7 +101,7 @@ namespace FreeTimeSpenderWeb.Services
 
                     foreach (PlayerModel player in _players)
                     {
-                        if (player.Name == "Bot")
+                        if (player.Name == "Bot" || player.Name!.StartsWith("bullet-"))
                         {
                             continue;
                         }
@@ -123,7 +141,10 @@ namespace FreeTimeSpenderWeb.Services
                     }
                 }
 
-                await Task.Delay(100);
+                if (_random.Next(50) == 0)
+                {
+                    AddABullet(!bot.IsReversed, bot.PositionX, bot.PositionY, bot.Name!);
+                }
             }
         }
 
@@ -151,13 +172,15 @@ namespace FreeTimeSpenderWeb.Services
 
             foreach (PlayerModel player in _players)
             {
-                if (player.Name == "Bot")
+                if (player.Name == "Bot" || player.Name!.StartsWith("bullet-"))
                 {
                     continue;
                 }
 
-                if (Math.Abs(botPlayer.PositionX - player.PositionX) <= 20 &&
-                    Math.Abs(botPlayer.PositionY - player.PositionY) <= 42)
+                bool overlapX = (player.PositionX - 10 <= botPlayer.PositionX + 25 && botPlayer.PositionX - 10 <= player.PositionX + 25);
+                bool overlapY = (player.PositionY + 30 <= botPlayer.PositionY + 80 && botPlayer.PositionY + 30 <= player.PositionY + 80);
+
+                if (overlapX && overlapY)
                 {
                     KillPlayer(player.Name!);
                     return player.Name!;
@@ -165,6 +188,102 @@ namespace FreeTimeSpenderWeb.Services
             }
 
             return "Players checked";
+        }
+
+        public void AddABullet(bool lookRight, int starterX, int starterY, string shooterName) 
+        {
+            string baseName = "bullet-";
+            int index = 1;
+
+            while (_players.Any(p => p.Name == baseName + index))
+            {
+                index++;
+            }
+
+            string newBulletName = baseName + index;
+
+            starterY += 60;    //hitbox Y +30 +80,  X -15 +30
+
+            if (lookRight)
+            {
+                starterX += 30;
+            }
+            else
+            {
+                starterX -= 15;
+            }
+
+            PlayerModel newBullet = new PlayerModel
+            {
+                Name = newBulletName,
+                PositionX = starterX,
+                PositionY = starterY,
+                Health = 10,
+                IsReversed = lookRight,
+                Shooter = shooterName
+            };
+
+            _players.Add(newBullet);
+
+        }
+
+        public void MoveBullets()
+        {
+            List<PlayerModel> bullets = _players.Where(p => p.Name!.StartsWith("bullet-")).ToList();
+
+            for (int i = bullets.Count - 1; i >= 0; i--)
+            {
+                PlayerModel bullet = bullets[i];
+
+                if (bullet.IsReversed)
+                {
+                    bullet.PositionX += 10;
+                }
+                else
+                {
+                    bullet.PositionX -= 10;
+                }
+
+                if (bullet.PositionX < 0 || bullet.PositionX > 2000)
+                {
+                    _players.Remove(bullet);
+                }
+
+                CheckHit(bullet);
+            }
+        }
+
+        public void CheckHit(PlayerModel bullet)
+        {
+            for (int i = _players.Count - 1; i >= 0; i--)
+            {
+                PlayerModel player = _players[i];
+
+                if (player.Name!.StartsWith("bullet-") || player.Name == bullet.Shooter)
+                    continue;
+
+                if (bullet.PositionY < player.PositionY + 30 || bullet.PositionY > player.PositionY + 80 ||
+                    bullet.PositionX < player.PositionX - 10 || bullet.PositionX > player.PositionX + 25)
+                    continue;
+
+                player.Health -= bullet.Health;
+                bullet.Health -= player.Health;
+
+                if (player.Health <= 0)
+                {
+                    _players.Remove(player);
+
+                    if (player.Name == "Bot")
+                    {
+                        KillBot();
+                    }
+                }
+
+                if (bullet.Health <= 0)
+                {
+                    _players.Remove(bullet);
+                }
+            }
         }
 
     }
