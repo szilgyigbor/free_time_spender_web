@@ -37,39 +37,37 @@ namespace FreeTimeSpenderWeb.Services
             return _players;
         }
 
+        public void AddPlayer(string username, int positionX, int positionY)
+        {
+            PlayerModel player = new PlayerModel
+            {
+                Name = username,
+                PositionX = positionX,
+                PositionY = positionY,
+                Health = 100,
+                IsReversed = false,
+                Shooter = username
+            };
+
+            _players.Add(player);
+        }
+
         public List<PlayerModel> UpdatePlayer(string username, int newX, int newY)
         {
             PlayerModel player = _players.Find(p => p.Name == username)!;
-
-            if (player != null)
+            
+            if (player.PositionX > newX)
             {
-                if (player.PositionX > newX)
-                {
-                    player.IsReversed = true;
-                }
-                else if (player.PositionX < newX)
-                {
-                    player.IsReversed = false;
-                }
-
-                player.PositionX = newX;
-                player.PositionY = newY;
+                player.IsReversed = true;
             }
-            else
+            else if (player.PositionX < newX)
             {
-                player = new PlayerModel
-                {
-                    Name = username,
-                    PositionX = newX,
-                    PositionY = newY,
-                    Health = 100,
-                    IsReversed = false,
-                    Shooter = username
-                };
-
-                _players.Add(player);
+                player.IsReversed = false;
             }
 
+            player.PositionX = newX;
+            player.PositionY = newY;
+            
             return _players;
         }
 

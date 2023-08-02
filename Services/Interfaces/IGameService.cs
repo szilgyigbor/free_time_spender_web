@@ -6,6 +6,8 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
     {
         List<PlayerModel> GetPlayers();
 
+        void AddPlayer(string username, int positionX, int positionY);
+
         List<PlayerModel> UpdatePlayer(string username, int newX, int newY);
 
         void UpdateBot();
