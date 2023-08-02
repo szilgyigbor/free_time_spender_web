@@ -25,15 +25,25 @@ namespace FreeTimeSpenderWeb.Hubs
 
         public async Task UpdateStatus()
         {
-            await Clients.All.SendAsync("PlayersMoved", _gameService.GetPlayers());
+            await Clients.Caller.SendAsync("PlayersMoved", _gameService.GetPlayers());
 
-            await Clients.All.SendAsync("KilledPlayer", _gameService.CheckPlayers());
+            await Clients.Caller.SendAsync("KilledPlayer", _gameService.CheckPlayers());
         }
 
 
         public async Task KillTheBot()
         {
             _gameService.KillBot();
+        }
+
+        public async Task MakeAShot(bool lookRight, int starterX, int starterY, string shooterName)
+        {
+            _gameService.AddABullet(lookRight, starterX, starterY, shooterName);
+        }
+
+        public async Task KillPlayer(string username)
+        {
+            _gameService.KillPlayer(username);
         }
         
     }
