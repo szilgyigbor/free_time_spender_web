@@ -8,11 +8,19 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
 
         List<PlayerModel> UpdatePlayer(string username, int newX, int newY);
 
-        Task UpdateBot();
+        void UpdateBot();
 
         void KillBot();
 
+        void KillPlayer(string username);
+
         string CheckPlayers();
+
+        Task UpdateGame();
+
+        void AddABullet(bool lookRight, int starterX, int starterY, string shooterName);
+
+        void MoveBullets();
 
     }
 }
