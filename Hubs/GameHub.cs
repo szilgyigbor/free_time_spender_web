@@ -41,6 +41,12 @@ namespace FreeTimeSpenderWeb.Hubs
             _gameService.AddABullet(lookRight, starterX, starterY, shooterName);
         }
 
+        public async Task AddPlayer(string username, int positionX, int positionY)
+        {
+            _gameService.AddPlayer(username, positionX, positionY);
+        }
+
+
         public async Task KillPlayer(string username)
         {
             _gameService.KillPlayer(username);
