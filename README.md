@@ -42,7 +42,7 @@ To get started with this project, follow these steps:
 
 ## Live Demo
 
-A live demo of this application is available at the following URL: [www.digitalisjatszoter.hu](http://www.digitalisjatszoter.hu). Feel free to explore and test the features in a real-world scenario!
+A live demo of this application is available at the following URL: [www.digitalisjatszoter.hu](https://www.digitalisjatszoter.hu). Feel free to explore and test the features in a real-world scenario!
 
 ## Related Projects
 
