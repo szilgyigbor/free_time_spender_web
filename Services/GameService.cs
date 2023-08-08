@@ -21,7 +21,7 @@ namespace FreeTimeSpenderWeb.Services
 
         public async Task UpdateGame()
         {
-            CreateBots(5);
+            CreateBots(3);
 
             while (_gameIsRunning)
             {
