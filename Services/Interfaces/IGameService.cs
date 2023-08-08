@@ -12,8 +12,6 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
 
         void UpdateBot();
 
-        void KillBot();
-
         void KillPlayer(string username);
 
         string CheckPlayers();
