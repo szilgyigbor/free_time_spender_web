@@ -7,7 +7,6 @@ namespace FreeTimeSpenderWeb.Controllers
 {
     
     [ApiController]
-    [Authorize]
     public class ApiController : ControllerBase
     {
         private readonly INewsService _newsService;
@@ -24,7 +23,8 @@ namespace FreeTimeSpenderWeb.Controllers
             _flickrService = flickrService;
         }
 
-        
+
+        [Authorize]
         [Route("api/getnews")]
         [HttpGet]
         public async Task<IActionResult> GetNewsAsync()
@@ -43,6 +43,7 @@ namespace FreeTimeSpenderWeb.Controllers
         }
 
 
+        [Authorize]
         [Route("api/getbotanswer")]
         [HttpPost]
         public async Task<IActionResult> GetBotAnswerAsync([FromBody] string newMessage)
@@ -61,6 +62,7 @@ namespace FreeTimeSpenderWeb.Controllers
         }
 
 
+        [Authorize]
         [Route("api/getweather")]
         [HttpPost]
         public async Task<IActionResult> GetWeatherAsync([FromBody] string location)
@@ -79,6 +81,7 @@ namespace FreeTimeSpenderWeb.Controllers
         }
 
 
+        [Authorize]
         [Route("api/getimage")]
         [HttpPost]
         public async Task<IActionResult> GetImageAsync([FromBody] string location)
@@ -96,6 +99,23 @@ namespace FreeTimeSpenderWeb.Controllers
 
         }
 
+
+        [Route("api/getonenews")]
+        [HttpGet]
+        public async Task<IActionResult> GetOneNewsAsync()
+        {
+            var newsApiKey = Environment.GetEnvironmentVariable("NewsApiKey");
+            var result = await _newsService.GetOneNewsAsync(newsApiKey!);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
 
     }
 }
