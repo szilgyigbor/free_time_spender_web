@@ -31,11 +31,6 @@ namespace FreeTimeSpenderWeb.Hubs
         }
 
 
-        public async Task KillTheBot()
-        {
-            _gameService.KillBot();
-        }
-
         public async Task MakeAShot(bool lookRight, int starterX, int starterY, string shooterName)
         {
             _gameService.AddABullet(lookRight, starterX, starterY, shooterName);
