@@ -2,6 +2,7 @@
 using FreeTimeSpenderWeb.Hubs;
 using FreeTimeSpenderWeb.Models;
 using FreeTimeSpenderWeb.Services.Interfaces;
+using System.Linq;
 
 namespace FreeTimeSpenderWeb.Services
 
@@ -11,7 +12,6 @@ namespace FreeTimeSpenderWeb.Services
         private static List<PlayerModel> _players = new List<PlayerModel>();
         private Random _random = new Random();
         private bool _gameIsRunning = true;
-        private bool _botIsLiving = true;
 
         public GameService()
         {
@@ -21,6 +21,8 @@ namespace FreeTimeSpenderWeb.Services
 
         public async Task UpdateGame()
         {
+            CreateBots(5);
+
             while (_gameIsRunning)
             {
                 UpdateBot();
@@ -74,83 +76,64 @@ namespace FreeTimeSpenderWeb.Services
 
         public void UpdateBot()
         {
-            if (_botIsLiving)
+            
+            List<PlayerModel> bots = _players.Where(p => p.Name!.StartsWith("Bot-")).ToList();
+
+            foreach (PlayerModel bot in bots)
             {
-                PlayerModel bot = _players.Find(p => p.Name == "Bot")!;
 
-                if (bot == null)
+                PlayerModel closestPlayer = null;
+                double closestDistance = double.MaxValue;
+
+                foreach (PlayerModel player in _players)
                 {
-                    bot = new PlayerModel
+                    if (player.Name!.StartsWith("Bot-") || player.Name!.StartsWith("bullet-"))
                     {
-                        Name = "Bot",
-                        PositionX = 300,
-                        PositionY = 300,
-                        Health = 100,
-                        IsReversed = false,
-                        Shooter = "Bot"
-                    };
-
-                    _players.Add(bot);
-                }
-                else
-                {
-                    PlayerModel closestPlayer = null;
-                    double closestDistance = double.MaxValue;
-
-                    foreach (PlayerModel player in _players)
-                    {
-                        if (player.Name == "Bot" || player.Name!.StartsWith("bullet-"))
-                        {
-                            continue;
-                        }
-
-                        int dx = player.PositionX - bot.PositionX;
-                        int dy = player.PositionY - bot.PositionY;
-                        double distance = Math.Sqrt(dx * dx + dy * dy);
-
-                        if (distance < closestDistance)
-                        {
-                            closestPlayer = player;
-                            closestDistance = distance;
-                        }
+                        continue;
                     }
 
-                    if (closestPlayer != null)
+                    int dx = player.PositionX - bot.PositionX;
+                    int dy = player.PositionY - bot.PositionY;
+                    double distance = Math.Sqrt(dx * dx + dy * dy);
+
+                    if (distance < closestDistance)
                     {
-                        int dx = closestPlayer.PositionX - bot.PositionX;
-                        int dy = closestPlayer.PositionY - bot.PositionY;
-
-                        double length = Math.Sqrt(dx * dx + dy * dy);
-                        double directionX = dx / length;
-                        double directionY = dy / length;
-
-                        if (bot.PositionX > (bot.PositionX + 2 * ((int)Math.Round(directionX))))
-                        {
-                            bot.IsReversed = true;
-                        }
-
-                        else if (bot.PositionX < (bot.PositionX + 2 * ((int)Math.Round(directionX))))
-                        {
-                            bot.IsReversed = false;
-                        }
-
-                        bot.PositionX += 2 * ((int)Math.Round(directionX));
-                        bot.PositionY += 2 * ((int)Math.Round(directionY));
+                        closestPlayer = player;
+                        closestDistance = distance;
                     }
                 }
+
+                if (closestPlayer != null)
+                {
+                    int dx = closestPlayer.PositionX - bot.PositionX;
+                    int dy = closestPlayer.PositionY - bot.PositionY;
+
+                    double length = Math.Sqrt(dx * dx + dy * dy);
+                    double directionX = dx / length;
+                    double directionY = dy / length;
+
+                    if (bot.PositionX > (bot.PositionX + 2 * ((int)Math.Round(directionX))))
+                    {
+                        bot.IsReversed = true;
+                    }
+
+                    else if (bot.PositionX < (bot.PositionX + 2 * ((int)Math.Round(directionX))))
+                    {
+                        bot.IsReversed = false;
+                    }
+
+                    bot.PositionX += 2 * ((int)Math.Round(directionX));
+                    bot.PositionY += 2 * ((int)Math.Round(directionY));
+                }
+
 
                 if (_random.Next(50) == 0)
                 {
                     AddABullet(!bot.IsReversed, bot.PositionX, bot.PositionY, bot.Name!);
                 }
+
             }
-        }
-
-
-        public void KillBot()
-        {
-            _botIsLiving = false;
-            _players.RemoveAll(p => p.Name == "Bot");
+            
         }
 
 
@@ -186,6 +169,14 @@ namespace FreeTimeSpenderWeb.Services
             }
 
             return "Players checked";
+        }
+
+        public void CreateBots(int botNumber)
+        {
+            for (int i = 0; i < botNumber; i++)
+            {
+                AddPlayer("Bot-" + i, _random.Next(100, 700), _random.Next(100, 500));
+            }
         }
 
         public void AddABullet(bool lookRight, int starterX, int starterY, string shooterName) 
@@ -270,11 +261,7 @@ namespace FreeTimeSpenderWeb.Services
                 if (player.Health <= 0)
                 {
                     _players.Remove(player);
-
-                    if (player.Name == "Bot")
-                    {
-                        KillBot();
-                    }
+                    
                 }
 
                 if (bullet.Health <= 0)
