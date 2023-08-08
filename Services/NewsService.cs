@@ -39,5 +39,34 @@ namespace FreeTimeSpenderWeb.Services
                 return null;
             }
         }
+
+        public async Task<ArticleModel> GetOneNewsAsync(string apiKey)
+        {
+            var country = "hu";
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://newsapi.org/v2/top-headlines?country={country}&apiKey={apiKey}");
+
+            request.Headers.Add("User-Agent", "Free-Time-Spender");
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var newsResponse = JsonConvert.DeserializeObject<NewsResponse>(content);
+
+                if (newsResponse?.Articles != null && newsResponse.Articles.Length > 0)
+                {
+                    var random = new Random();
+                    var randomArticle = newsResponse.Articles[random.Next(newsResponse.Articles.Length)];
+                    return randomArticle;
+                }
+                return null;
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                return null;
+            }
+        }
     }
 }
