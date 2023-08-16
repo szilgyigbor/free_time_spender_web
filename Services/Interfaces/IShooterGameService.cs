@@ -2,7 +2,7 @@
 
 namespace FreeTimeSpenderWeb.Services.Interfaces
 {
-    public interface IGameService
+    public interface IShooterGameService
     {
         List<PlayerData> GetPlayers();
 

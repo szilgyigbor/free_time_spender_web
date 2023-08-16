@@ -7,13 +7,13 @@ using System.Linq;
 namespace FreeTimeSpenderWeb.Services
 
 {
-    public class GameService: IGameService
+    public class ShooterGameService: IShooterGameService
     {
         private static List<PlayerData> _players = new List<PlayerData>();
         private Random _random = new Random();
         private bool _gameIsRunning = true;
 
-        public GameService()
+        public ShooterGameService()
         {
             Task.Run(UpdateGame);
         }

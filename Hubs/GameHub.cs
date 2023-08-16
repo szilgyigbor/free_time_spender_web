@@ -5,9 +5,9 @@ namespace FreeTimeSpenderWeb.Hubs
 {
     public class GameHub : Hub
     {
-        private readonly IGameService _gameService;
+        private readonly IShooterGameService _gameService;
 
-        public GameHub(IGameService gameService)
+        public GameHub(IShooterGameService gameService)
         {
             _gameService = gameService;
 

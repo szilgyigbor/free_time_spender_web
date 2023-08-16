@@ -69,7 +69,7 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<IWeatherService, WeatherService>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
-            builder.Services.AddSingleton<IGameService, GameService>();
+            builder.Services.AddSingleton<IShooterGameService, ShooterGameService>();
 
             var port = Environment.GetEnvironmentVariable("PORT");
             if (!string.IsNullOrEmpty(port))
