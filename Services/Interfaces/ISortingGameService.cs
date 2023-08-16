@@ -1,6 +1,11 @@
-﻿namespace FreeTimeSpenderWeb.Services.Interfaces
+﻿using FreeTimeSpenderWeb.Models;
+
+namespace FreeTimeSpenderWeb.Services.Interfaces
 {
-    public class ISortingGameService
+    public interface ISortingGameService
     {
+        Task<IEnumerable<SortingGameData>> GetSortingGameDatas();
+
+        Task AddResult(SortingGameData sortingGameData);
     }
 }
