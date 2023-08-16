@@ -2,10 +2,10 @@
 {
     public class NewsResponse
     {
-        public ArticleModel[]? Articles { get; set; }
+        public ArticleData[]? Articles { get; set; }
     }
 
-    public class ArticleModel
+    public class ArticleData
     {
         public Source? Source { get; set; }
         public string? Author { get; set; }

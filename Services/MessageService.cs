@@ -14,12 +14,12 @@ namespace FreeTimeSpenderWeb.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<MessageDataModel>> GetMessages()
+        public async Task<IEnumerable<MessageData>> GetMessages()
         {
             return await _context.MessageDatas.ToListAsync();
         }
 
-        public async Task AddMessage(MessageDataModel message)
+        public async Task AddMessage(MessageData message)
         {
             await _context.MessageDatas.AddAsync(message);
             await _context.SaveChangesAsync();

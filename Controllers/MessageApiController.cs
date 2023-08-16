@@ -34,7 +34,7 @@ namespace FreeTimeSpenderWeb.Controllers
         [Authorize]
         [Route("addmessage")]
         [HttpPost]
-        public async Task<IActionResult> AddMessage([FromBody] MessageDataModel message)
+        public async Task<IActionResult> AddMessage([FromBody] MessageData message)
         {
             await _messageService.AddMessage(message);
             return Ok();

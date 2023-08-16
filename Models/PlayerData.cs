@@ -1,6 +1,6 @@
 ﻿namespace FreeTimeSpenderWeb.Models
 {
-    public class PlayerModel
+    public class PlayerData
     {
         public string? Name { get; set; }
         public int PositionX { get; set; }

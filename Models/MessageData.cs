@@ -2,24 +2,24 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace FreeTimeSpenderWeb.Models
 {
-    public class UserDataModel
+    public class MessageData
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
         [Column(TypeName = "text")]
+        [StringLength(500)]
+        public string? Message { get; set; }
+
+        [Required]
+        [Column(TypeName = "text")]
+        [StringLength(50)]
         public string? Username { get; set; }
 
-        [Column(TypeName = "text")]
-        public string? Email { get; set; }
-
-        [Column(TypeName = "text")]
-        [Required]
-        public string? Password { get; set; }
-
-        public bool IsAdmin { get; set; } = false;
+        public DateTime PostedAt { get; set; }
     }
 }

@@ -11,24 +11,24 @@ namespace FreeTimeSpenderWeb.Services
     public class UserService : IUserService
     {
         private readonly FreeTimeSpenderContext _context;
-        private PasswordHasher<UserDataModel> PasswordHasher { get; }
+        private PasswordHasher<UserData> PasswordHasher { get; }
 
 
         public UserService(FreeTimeSpenderContext context)
         {
             _context = context;
-            PasswordHasher = new PasswordHasher<UserDataModel>();
+            PasswordHasher = new PasswordHasher<UserData>();
         }
 
 
-        public async Task RegisterUser(UserDataModel registerData)
+        public async Task RegisterUser(UserData registerData)
         {
             if (await RegistrationIsValid(registerData) is false)
             {
                 throw new ArgumentException("Registration data is invalid.", nameof(registerData));
             }
 
-            var user = new UserDataModel()
+            var user = new UserData()
             {
                 Email = registerData.Email,
                 Username = registerData.Username,
@@ -44,7 +44,7 @@ namespace FreeTimeSpenderWeb.Services
         }
         
 
-        public async Task<ClaimsPrincipal> LoginUser(UserDataModel loginData)
+        public async Task<ClaimsPrincipal> LoginUser(UserData loginData)
         {
             var claims = await CreateClaims(loginData);
             var identity = new ClaimsIdentity(claims, "LoginCookieAuth");
@@ -53,7 +53,7 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public async Task<IEnumerable<Claim>> CreateClaims(UserDataModel userData)
+        public async Task<IEnumerable<Claim>> CreateClaims(UserData userData)
         {
             if (!await UserIsRegistered(userData))
             {
@@ -72,7 +72,7 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public async Task<bool> UserIsRegistered(UserDataModel userData)
+        public async Task<bool> UserIsRegistered(UserData userData)
         {
             var user = await GetUserByUsername(userData.Username);
             if (user == null)
@@ -85,7 +85,7 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public async Task<bool> RegistrationIsValid(UserDataModel userData)
+        public async Task<bool> RegistrationIsValid(UserData userData)
         {
             var user = await GetUserByUsername(userData.Username);
             if (user != null)
@@ -103,19 +103,19 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public async Task<UserDataModel?> GetUserById(int Id)
+        public async Task<UserData?> GetUserById(int Id)
         {
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Id == Id);
         }
 
 
-        private async Task<UserDataModel?> GetUserByUsername(string username)
+        private async Task<UserData?> GetUserByUsername(string username)
         {
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Username == username);
         }
 
 
-        private async Task<UserDataModel?> GetUserByEmail(string email)
+        private async Task<UserData?> GetUserByEmail(string email)
         {
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Email == email);
         }

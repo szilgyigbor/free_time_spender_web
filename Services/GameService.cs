@@ -9,7 +9,7 @@ namespace FreeTimeSpenderWeb.Services
 {
     public class GameService: IGameService
     {
-        private static List<PlayerModel> _players = new List<PlayerModel>();
+        private static List<PlayerData> _players = new List<PlayerData>();
         private Random _random = new Random();
         private bool _gameIsRunning = true;
 
@@ -34,14 +34,14 @@ namespace FreeTimeSpenderWeb.Services
         }
 
 
-        public List<PlayerModel> GetPlayers()
+        public List<PlayerData> GetPlayers()
         {
             return _players;
         }
 
         public void AddPlayer(string username, int positionX, int positionY)
         {
-            PlayerModel player = new PlayerModel
+            PlayerData player = new PlayerData
             {
                 Name = username,
                 PositionX = positionX,
@@ -54,9 +54,9 @@ namespace FreeTimeSpenderWeb.Services
             _players.Add(player);
         }
 
-        public List<PlayerModel> UpdatePlayer(string username, int newX, int newY)
+        public List<PlayerData> UpdatePlayer(string username, int newX, int newY)
         {
-            PlayerModel player = _players.Find(p => p.Name == username)!;
+            PlayerData player = _players.Find(p => p.Name == username)!;
             
             if (player.PositionX > newX)
             {
@@ -77,15 +77,15 @@ namespace FreeTimeSpenderWeb.Services
         public void UpdateBot()
         {
             
-            List<PlayerModel> bots = _players.Where(p => p.Name!.StartsWith("Bot-")).ToList();
+            List<PlayerData> bots = _players.Where(p => p.Name!.StartsWith("Bot-")).ToList();
 
-            foreach (PlayerModel bot in bots)
+            foreach (PlayerData bot in bots)
             {
 
-                PlayerModel closestPlayer = null;
+                PlayerData closestPlayer = null;
                 double closestDistance = double.MaxValue;
 
-                foreach (PlayerModel player in _players)
+                foreach (PlayerData player in _players)
                 {
                     if (player.Name!.StartsWith("Bot-") || player.Name!.StartsWith("bullet-"))
                     {
@@ -144,14 +144,14 @@ namespace FreeTimeSpenderWeb.Services
 
         public string CheckPlayers()
         {
-            PlayerModel botPlayer = _players.FirstOrDefault(player => player.Name == "Bot")!;
+            PlayerData botPlayer = _players.FirstOrDefault(player => player.Name == "Bot")!;
 
             if (botPlayer == null)
             {
                 return "Players checked";
             }
 
-            foreach (PlayerModel player in _players)
+            foreach (PlayerData player in _players)
             {
                 if (player.Name == "Bot" || player.Name!.StartsWith("bullet-"))
                 {
@@ -202,7 +202,7 @@ namespace FreeTimeSpenderWeb.Services
                 starterX -= 15;
             }
 
-            PlayerModel newBullet = new PlayerModel
+            PlayerData newBullet = new PlayerData
             {
                 Name = newBulletName,
                 PositionX = starterX,
@@ -218,11 +218,11 @@ namespace FreeTimeSpenderWeb.Services
 
         public void MoveBullets()
         {
-            List<PlayerModel> bullets = _players.Where(p => p.Name!.StartsWith("bullet-")).ToList();
+            List<PlayerData> bullets = _players.Where(p => p.Name!.StartsWith("bullet-")).ToList();
 
             for (int i = bullets.Count - 1; i >= 0; i--)
             {
-                PlayerModel bullet = bullets[i];
+                PlayerData bullet = bullets[i];
 
                 if (bullet.IsReversed)
                 {
@@ -242,11 +242,11 @@ namespace FreeTimeSpenderWeb.Services
             }
         }
 
-        public void CheckHit(PlayerModel bullet)
+        public void CheckHit(PlayerData bullet)
         {
             for (int i = _players.Count - 1; i >= 0; i--)
             {
-                PlayerModel player = _players[i];
+                PlayerData player = _players[i];
 
                 if (player.Name!.StartsWith("bullet-") || player.Name == bullet.Shooter)
                     continue;

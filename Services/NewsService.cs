@@ -40,7 +40,7 @@ namespace FreeTimeSpenderWeb.Services
             }
         }
 
-        public async Task<ArticleModel> GetOneNewsAsync(string apiKey)
+        public async Task<ArticleData> GetOneNewsAsync(string apiKey)
         {
             var country = "hu";
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://newsapi.org/v2/top-headlines?country={country}&apiKey={apiKey}");

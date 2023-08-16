@@ -5,10 +5,10 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
 {
     public interface IUserService
     {
-        Task RegisterUser(UserDataModel registerData);
-        Task<ClaimsPrincipal> LoginUser(UserDataModel loginData);
-        Task<IEnumerable<Claim>> CreateClaims(UserDataModel userData);
-        Task<bool> UserIsRegistered(UserDataModel userData);
-        Task<bool> RegistrationIsValid(UserDataModel userData);
+        Task RegisterUser(UserData registerData);
+        Task<ClaimsPrincipal> LoginUser(UserData loginData);
+        Task<IEnumerable<Claim>> CreateClaims(UserData userData);
+        Task<bool> UserIsRegistered(UserData userData);
+        Task<bool> RegistrationIsValid(UserData userData);
     }
 }

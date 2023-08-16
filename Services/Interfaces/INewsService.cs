@@ -6,6 +6,6 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
     {
         Task<string> GetNewsAsync(string apiKey);
 
-        Task<ArticleModel> GetOneNewsAsync(string apiKey);
+        Task<ArticleData> GetOneNewsAsync(string apiKey);
     }
 }

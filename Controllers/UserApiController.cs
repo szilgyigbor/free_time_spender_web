@@ -24,7 +24,7 @@ namespace FreeTimeSpenderWeb.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] UserDataModel loginData)
+        public async Task<IActionResult> Login([FromBody] UserData loginData)
         {
             if (await _userService.UserIsRegistered(loginData))
             {
@@ -48,7 +48,7 @@ namespace FreeTimeSpenderWeb.Controllers
 
         [Route("signup")]
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromBody] UserDataModel signUpData)
+        public async Task<IActionResult> SignUp([FromBody] UserData signUpData)
         {
 
             if (await _userService.RegistrationIsValid(signUpData))

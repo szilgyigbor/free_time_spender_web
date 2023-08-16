@@ -5,8 +5,8 @@ namespace FreeTimeSpenderWeb.Data
 {
     public class FreeTimeSpenderContext : DbContext
     {
-        public DbSet<UserDataModel> SignUpDatas { get; set; }
-        public DbSet<MessageDataModel> MessageDatas { get; set; }
+        public DbSet<UserData> SignUpDatas { get; set; }
+        public DbSet<MessageData> MessageDatas { get; set; }
 
         public FreeTimeSpenderContext(DbContextOptions<FreeTimeSpenderContext> options) : base(options)
         {

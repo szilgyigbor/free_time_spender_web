@@ -4,8 +4,8 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
 {
     public interface IMessageService
     {
-        Task<IEnumerable<MessageDataModel>> GetMessages();
+        Task<IEnumerable<MessageData>> GetMessages();
 
-        Task AddMessage(MessageDataModel message);
+        Task AddMessage(MessageData message);
     }
 }
