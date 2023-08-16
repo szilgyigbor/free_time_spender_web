@@ -70,6 +70,7 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IMessageService, MessageService>();
             builder.Services.AddSingleton<IShooterGameService, ShooterGameService>();
+            builder.Services.AddTransient<ISortingGameService, SortingGameService>();
 
             var port = Environment.GetEnvironmentVariable("PORT");
             if (!string.IsNullOrEmpty(port))
