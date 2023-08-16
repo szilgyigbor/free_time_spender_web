@@ -14,9 +14,12 @@ namespace FreeTimeSpenderWeb.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<SortingGameData>> GetResults()
+        public async Task<IEnumerable<SortingGameData>> GetTop10Results()
         {
-            return await _context.SortingGameDatas.ToListAsync();
+            return await _context.SortingGameDatas
+                .OrderBy(result => result.TimeInSeconds)
+                .Take(10)
+                .ToListAsync();
         }
 
         public async Task AddResult(SortingGameData sortingGameData)
