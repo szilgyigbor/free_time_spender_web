@@ -17,9 +17,9 @@ namespace FreeTimeSpenderWeb.Controllers
 
         [Route("api/getsortingresults")]
         [HttpGet]
-        public async Task<IActionResult> GetResults()
+        public async Task<IActionResult> GetTop10Results()
         {
-            var result = await _sortingGameService.GetResults();
+            var result = await _sortingGameService.GetTop10Results();
             if (result != null)
             {
                 return Ok(result);
@@ -30,7 +30,6 @@ namespace FreeTimeSpenderWeb.Controllers
             }
         }
 
-        [Authorize]
         [Route("api/addsortingresult")]
         [HttpPost]
         public async Task<IActionResult> AddResult([FromBody] SortingGameData sortingGameData)
