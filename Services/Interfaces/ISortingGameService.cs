@@ -4,7 +4,7 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
 {
     public interface ISortingGameService
     {
-        Task<IEnumerable<SortingGameData>> GetSortingGameDatas();
+        Task<IEnumerable<SortingGameData>> GetResults();
 
         Task AddResult(SortingGameData sortingGameData);
     }

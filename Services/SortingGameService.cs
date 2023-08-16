@@ -14,7 +14,7 @@ namespace FreeTimeSpenderWeb.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<SortingGameData>> GetSortingGameDatas()
+        public async Task<IEnumerable<SortingGameData>> GetResults()
         {
             return await _context.SortingGameDatas.ToListAsync();
         }
