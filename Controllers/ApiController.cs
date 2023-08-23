@@ -24,7 +24,6 @@ namespace FreeTimeSpenderWeb.Controllers
         }
 
 
-        [Authorize]
         [Route("api/getnews")]
         [HttpGet]
         public async Task<IActionResult> GetNewsAsync()
