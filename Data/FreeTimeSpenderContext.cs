@@ -8,6 +8,7 @@ namespace FreeTimeSpenderWeb.Data
         public DbSet<UserData> SignUpDatas { get; set; }
         public DbSet<OpinionData> OpinionDatas { get; set; }
         public DbSet<SortingGameData> SortingGameDatas { get; set; }
+        public DbSet<PageNewsData> PageNewsDatas { get; set; }
 
         public FreeTimeSpenderContext(DbContextOptions<FreeTimeSpenderContext> options) : base(options)
         {
