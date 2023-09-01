@@ -21,5 +21,7 @@ namespace FreeTimeSpenderWeb.Models
         public string? Password { get; set; }
 
         public bool IsAdmin { get; set; } = false;
+
+        public bool IsFriend { get; set; } = false;
     }
 }
