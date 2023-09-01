@@ -68,7 +68,7 @@ namespace FreeTimeSpenderWeb
             builder.Services.AddTransient<IFlickrService, FlickrService>();
             builder.Services.AddTransient<IWeatherService, WeatherService>();
             builder.Services.AddTransient<IUserService, UserService>();
-            builder.Services.AddTransient<IMessageService, MessageService>();
+            builder.Services.AddTransient<IOpinionService, OpinionService>();
             builder.Services.AddSingleton<IShooterGameService, ShooterGameService>();
             builder.Services.AddTransient<ISortingGameService, SortingGameService>();
 
