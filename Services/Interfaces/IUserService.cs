@@ -10,5 +10,6 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
         Task<IEnumerable<Claim>> CreateClaims(UserData userData);
         Task<bool> UserIsRegistered(UserData userData);
         Task<bool> RegistrationIsValid(UserData userData);
+        Task<List<string?>> GetUsernames();
     }
 }
