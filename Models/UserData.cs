@@ -23,5 +23,7 @@ namespace FreeTimeSpenderWeb.Models
         public bool IsAdmin { get; set; } = false;
 
         public bool IsFriend { get; set; } = false;
+
+        public DateTime RegistratedAt { get; set; }
     }
 }
