@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FreeTimeSpenderWeb.Models
 {
-    public class MessageData
+    public class OpinionData
     {
         [Key]
         public int Id { get; set; }
