@@ -5,23 +5,23 @@ using FreeTimeSpenderWeb.Models;
 
 namespace FreeTimeSpenderWeb.Services
 {
-    public class MessageService : IMessageService
+    public class OpinionService : IOpinionService
     {
         private readonly FreeTimeSpenderContext _context;
 
-        public MessageService(FreeTimeSpenderContext context)
+        public OpinionService(FreeTimeSpenderContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<MessageData>> GetMessages()
+        public async Task<IEnumerable<OpinionData>> GetOpinions()
         {
-            return await _context.MessageDatas.ToListAsync();
+            return await _context.OpinionDatas.ToListAsync();
         }
 
-        public async Task AddMessage(MessageData message)
+        public async Task AddOpinion(OpinionData opinion)
         {
-            await _context.MessageDatas.AddAsync(message);
+            await _context.OpinionDatas.AddAsync(opinion);
             await _context.SaveChangesAsync();
         }
 
