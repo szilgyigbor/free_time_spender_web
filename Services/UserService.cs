@@ -119,5 +119,14 @@ namespace FreeTimeSpenderWeb.Services
         {
             return await _context.SignUpDatas.FirstOrDefaultAsync(user => user.Email == email);
         }
+
+        public async Task<List<string?>> GetUsernames()
+        {
+            var usernames = await _context.SignUpDatas
+                .Select(user => user.Username)
+                .ToListAsync();
+
+            return usernames;
+        }
     }
 }
