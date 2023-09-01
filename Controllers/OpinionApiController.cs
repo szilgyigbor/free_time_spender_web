@@ -5,22 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FreeTimeSpenderWeb.Controllers
 {
-    [Route("api/messages")]
+    [Route("api/opinion")]
     [ApiController]
-    public class MessageApiController : ControllerBase
+    public class OpinionApiController : ControllerBase
     {
-        private readonly IMessageService _messageService;
+        private readonly IOpinionService _messageService;
 
-        public MessageApiController(IMessageService messageService)
+        public OpinionApiController(IOpinionService messageService)
         {
             _messageService = messageService;
         }
 
-        [Route("getmessages")]
+        [Route("getopinions")]
         [HttpGet]
-        public async Task<IActionResult> GetMessages()
+        public async Task<IActionResult> GetOpinions()
         {
-            var result = await _messageService.GetMessages();
+            var result = await _messageService.GetOpinions();
             if (result != null)
             {
                 return Ok(result);
@@ -32,11 +32,11 @@ namespace FreeTimeSpenderWeb.Controllers
         }
 
         [Authorize]
-        [Route("addmessage")]
+        [Route("addopinion")]
         [HttpPost]
-        public async Task<IActionResult> AddMessage([FromBody] MessageData message)
+        public async Task<IActionResult> AddOpinion([FromBody] OpinionData opinion)
         {
-            await _messageService.AddMessage(message);
+            await _messageService.AddOpinion(opinion);
             return Ok();
         }
     }
