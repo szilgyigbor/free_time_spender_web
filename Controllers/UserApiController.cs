@@ -31,7 +31,7 @@ namespace FreeTimeSpenderWeb.Controllers
             {
                 // Creating the security context
                 var claims = await _userService.CreateClaims(loginData);
-                var expiresAt = DateTime.UtcNow.AddHours(1);
+                var expiresAt = DateTime.UtcNow.AddDays(3);
                 
                 return Ok(new
                 {
@@ -57,7 +57,7 @@ namespace FreeTimeSpenderWeb.Controllers
                 await _userService.RegisterUser(signUpData);
                 
                 var claims = await _userService.CreateClaims(signUpData);
-                var expiresAt = DateTime.UtcNow.AddHours(1);
+                var expiresAt = DateTime.UtcNow.AddDays(3);
 
                 return Ok(new
                 {
