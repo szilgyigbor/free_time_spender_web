@@ -23,7 +23,7 @@ namespace FreeTimeSpenderWeb.Controllers
             _flickrService = flickrService;
         }
 
-
+        [Authorize]
         [Route("api/getnews")]
         [HttpGet]
         public async Task<IActionResult> GetNewsAsync()
