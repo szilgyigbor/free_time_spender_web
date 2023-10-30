@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FreeTimeSpenderWeb.Controllers
 {
-    [Route("forum")]
+    [Route("api/forum")]
     [ApiController]
     public class ForumController : ControllerBase
     {
