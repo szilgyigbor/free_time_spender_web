@@ -52,5 +52,13 @@ namespace FreeTimeSpenderWeb.Controllers
             await _forumService.AddPost(post);
             return Ok();
         }
+
+        [Route("addcomment")]
+        [HttpPost]
+        public async Task<IActionResult> AddComment([FromBody] CommentData comment)
+        {
+            await _forumService.AddComment(comment);
+            return Ok();
+        }
     }
 }
