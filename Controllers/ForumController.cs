@@ -44,5 +44,13 @@ namespace FreeTimeSpenderWeb.Controllers
                 return BadRequest();
             }
         }
+
+        [Route("addpost")]
+        [HttpPost]
+        public async Task<IActionResult> AddPost([FromBody] PostData post)
+        {
+            await _forumService.AddPost(post);
+            return Ok();
+        }
     }
 }
