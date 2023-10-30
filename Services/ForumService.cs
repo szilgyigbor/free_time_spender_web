@@ -1,10 +1,11 @@
 ﻿using FreeTimeSpenderWeb.Data;
 using FreeTimeSpenderWeb.Models;
+using FreeTimeSpenderWeb.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FreeTimeSpenderWeb.Services
 {
-    public class ForumService
+    public class ForumService : IForumService
     {
         private readonly FreeTimeSpenderContext _context;
 
