@@ -17,15 +17,16 @@ namespace FreeTimeSpenderWeb.Services
         public async Task<IEnumerable<PostData>> GetPosts()
         {
             return await _context.Posts
-                //.Include(p => p.Comments)
+                .Include(p => p.Comments)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<PostData>> GetPostById(int postId)
+        public async Task<PostData> GetPostById(int postId)
         {
-            return await _context.Posts.Where(p => p.Id == postId)
+            return await _context.Posts
+                .Where(p => p.Id == postId)
                 .Include(p => p.Comments)
-                .ToListAsync();
+                .FirstOrDefaultAsync() ?? new PostData();
         }
 
         public async Task AddPost(PostData post)

@@ -7,7 +7,7 @@ namespace FreeTimeSpenderWeb.Services.Interfaces
     {
         Task<IEnumerable<PostData>> GetPosts();
 
-        Task<IEnumerable<PostData>> GetPostById(int postId);
+        Task<PostData> GetPostById(int postId);
 
         Task AddPost(PostData post);
 
