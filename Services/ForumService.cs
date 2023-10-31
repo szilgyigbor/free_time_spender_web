@@ -44,9 +44,11 @@ namespace FreeTimeSpenderWeb.Services
         public async Task DeletePostById(int postId)
         {
             var post = await _context.Posts.FindAsync(postId);
+            var comments = await _context.Comments.Where(c => c.PostId == postId).ToListAsync();
 
             if (post != null) {
                 _context.Posts.Remove(post);
+                _context.Comments.RemoveRange(comments);
                 await _context.SaveChangesAsync();
             }
             
