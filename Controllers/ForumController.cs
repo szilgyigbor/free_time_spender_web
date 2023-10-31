@@ -60,5 +60,13 @@ namespace FreeTimeSpenderWeb.Controllers
             await _forumService.AddComment(comment);
             return Ok();
         }
+
+        [Route("deletepost/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeletePostById(int id)
+        {
+            await _forumService.DeletePostById(id);
+            return Ok();
+        }
     }
 }
